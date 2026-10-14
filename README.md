@@ -1,6 +1,6 @@
-# Jack -- 3D Creator
+# Вадим -- Фуллстак-разработчик
 
-A responsive single-page 3D creator portfolio built with React, TypeScript, Vite, Tailwind CSS, Framer Motion, and Lucide React.
+Адаптивное портфолио фуллстак-разработчика на React, TypeScript, Vite, Tailwind CSS, Framer Motion и Lucide React.
 
 ## Setup
 
@@ -30,10 +30,12 @@ npm run dev
 
 ## Asset traceability
 
-`src/data/assetSources.ts` records every exact original visual source URL and its local runtime file. The application renders only local paths, so third-party media hosts are not runtime dependencies. The exact Celestia URL returned `404` during setup; its archived original response was recovered from the Internet Archive. The supplied Skyelite `.gif` URL currently returns PNG bytes (despite an `image/gif` header), which are preserved verbatim.
+`src/data/assetSources.ts` хранит исходные URL визуальных материалов и локальные пути. Девять изображений проектов — реальные локальные скриншоты сайтов `sootechestvenniki-rf.ru`, `crism-prometey.ru` и `командор-авто.рф`. Рантайм не загружает изображения со сторонних доменов.
 
-## Contact form configuration
+Kanit сохранён для исходной латинской стилистики. Поскольку Kanit не содержит кириллицу, интерфейс использует локально размещённый Exo 2 с кириллическим и латинским variable-начертанием 300–900; лицензии обоих шрифтов находятся в `public/assets/fonts/`.
 
-Set `VITE_CONTACT_FORM_ENDPOINT` in a local `.env` file to the HTTPS endpoint that accepts contact form POST requests. The form remains visible but its submit button is disabled until a real endpoint is configured, so the interface never pretends to deliver a message.
+## Настройка контактной формы
 
-The brief does not provide destinations for any `Live Project` control. Add real URLs through the project `liveUrl` fields when they are available.
+Укажите `VITE_CONTACT_FORM_ENDPOINT` в локальном `.env` — это должен быть HTTPS endpoint, принимающий POST-запрос формы. До настройки реального обработчика кнопка отправки остаётся отключённой.
+
+Кнопки проектов ведут на реальные сайты, указанные в `src/data/projects.ts`.

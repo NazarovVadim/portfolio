@@ -7,32 +7,32 @@ export interface Service {
 export const services: readonly Service[] = [
   {
     number: '01',
-    name: '3D Modeling',
+    name: 'Backend-разработка',
     description:
-      'Creation of detailed objects, characters, or environments tailored to specific client needs, ideal for games, products, and visualizations.',
+      'Проектирование серверной части, API, баз данных, интеграций и бизнес-логики для надёжных веб-сервисов.',
   },
   {
     number: '02',
-    name: 'Rendering',
+    name: 'Frontend-разработка',
     description:
-      'High-quality, photorealistic renders that showcase designs with custom lighting, textures, and materials to bring concepts to life.',
+      'Адаптивные интерфейсы, личные кабинеты и административные панели с вниманием к скорости и удобству.',
   },
   {
     number: '03',
-    name: 'Motion Design',
+    name: 'Telegram-боты',
     description:
-      'Dynamic animations and motion graphics that add energy and storytelling to brands, products, and digital experiences.',
+      'Боты для автоматизации заявок, продаж, поддержки, уведомлений и внутренних процессов компании.',
   },
   {
     number: '04',
-    name: 'Branding',
+    name: 'Интеграции с 1С',
     description:
-      'Crafting cohesive visual identities -- from logos to full brand systems -- that communicate a clear and memorable presence.',
+      'Обмен данными между сайтами, CRM, каталогами, складскими системами и конфигурациями 1С.',
   },
   {
     number: '05',
-    name: 'Web Design',
+    name: 'Запуск и поддержка',
     description:
-      'Designing clean, modern, and conversion-focused websites with attention to layout, typography, and user experience.',
+      'Развёртывание проектов, настройка окружения, мониторинг, развитие функциональности и техническая поддержка.',
   },
 ] as const;

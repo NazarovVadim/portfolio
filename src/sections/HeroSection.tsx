@@ -4,9 +4,9 @@ import { ContactButton } from '../components/ui/ContactButton';
 import { assetPath } from '../lib/assets';
 
 const navigation = [
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Обо мне', href: '#about' },
+  { label: 'Проекты', href: '#projects' },
+  { label: 'Контакты', href: '#contact' },
 ] as const;
 
 export function HeroSection() {
@@ -29,8 +29,8 @@ export function HeroSection() {
 
       <div className="relative z-0 mt-6 overflow-hidden sm:mt-4 md:-mt-5">
         <FadeIn delay={0.15} y={40}>
-          <h1 className="hero-heading w-full whitespace-nowrap text-[14vw] font-black uppercase leading-none tracking-tight sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw]">
-            Hi, i&apos;m jack
+          <h1 className="hero-heading w-full whitespace-nowrap text-[10.5vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]">
+            Привет, я Вадим
           </h1>
         </FadeIn>
       </div>
@@ -46,7 +46,7 @@ export function HeroSection() {
           >
             <img
               src={assetPath('assets/images/hero/hero-portrait.png')}
-              alt="Jack, 3D creator"
+              alt="Вадим, фуллстак-разработчик"
               className="block max-h-[92svh] w-full object-contain object-bottom"
               width="1040"
               height="1280"
@@ -59,7 +59,7 @@ export function HeroSection() {
       <div className="relative z-20 mt-auto flex items-end justify-between gap-5 px-6 pb-7 sm:px-8 sm:pb-8 md:px-10 md:pb-10">
         <FadeIn delay={0.35} y={20}>
           <p className="max-w-[160px] text-[clamp(0.75rem,1.4vw,1.5rem)] font-light uppercase leading-snug tracking-wide text-[#D7E2EA] sm:max-w-[220px] md:max-w-[260px]">
-            a 3d creator driven by crafting striking and unforgettable projects
+            фуллстак-разработчик: создаю сайты, сервисы и автоматизацию для бизнеса
           </p>
         </FadeIn>
         <FadeIn delay={0.5} y={20}>

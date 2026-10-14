@@ -10,7 +10,7 @@ export function ContactButton({ href, className = '' }: ContactButtonProps) {
   if (href) {
     return (
       <a className={`${buttonClasses} ${className}`} href={href}>
-        Contact Me
+        Связаться
       </a>
     );
   }
@@ -21,9 +21,9 @@ export function ContactButton({ href, className = '' }: ContactButtonProps) {
       type="button"
       disabled
       aria-disabled="true"
-      title="Contact destination is not configured"
+      title="Раздел контактов не настроен"
     >
-      Contact Me
+      Связаться
     </button>
   );
 }

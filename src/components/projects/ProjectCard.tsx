@@ -51,7 +51,7 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           <div className="grid gap-3">
             <img
               src={project.images[0]}
-              alt={`${project.name} project detail one`}
+              alt={`${project.name} — первый экран проекта`}
               className="h-[clamp(130px,16vw,230px)] w-full rounded-[40px] object-cover sm:rounded-[50px] md:rounded-[60px]"
               width="1280"
               height="720"
@@ -60,7 +60,7 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
             />
             <img
               src={project.images[1]}
-              alt={`${project.name} project detail two`}
+              alt={`${project.name} — раздел проекта`}
               className="h-[clamp(160px,22vw,340px)] w-full rounded-[40px] object-cover sm:rounded-[50px] md:rounded-[60px]"
               width="1280"
               height="960"
@@ -70,7 +70,7 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           </div>
           <img
             src={project.images[2]}
-            alt={`${project.name} project overview`}
+            alt={`${project.name} — обзор сайта`}
             className="h-[clamp(300px,calc(38vw+0.75rem),582px)] w-full rounded-[40px] object-cover sm:rounded-[50px] md:rounded-[60px]"
             width="1280"
             height="1536"

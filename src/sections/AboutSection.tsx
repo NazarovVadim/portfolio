@@ -4,7 +4,7 @@ import { ContactButton } from '../components/ui/ContactButton';
 import { assetPath } from '../lib/assets';
 
 const aboutText =
-  "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!";
+  'Я Вадим, фуллстак-разработчик. Создаю веб-приложения от интерфейса до серверной логики, разрабатываю Telegram-ботов, интеграции с 1С и автоматизацию бизнес-процессов. Люблю превращать сложные задачи в понятные, быстрые и надёжные цифровые продукты.';
 
 const decorations = [
   {
@@ -65,7 +65,7 @@ export function AboutSection() {
         <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
           <FadeIn delay={0} y={40}>
             <h2 className="hero-heading text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight">
-              About me
+              Обо мне
             </h2>
           </FadeIn>
           <AnimatedText

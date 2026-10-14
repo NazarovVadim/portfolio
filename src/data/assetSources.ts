@@ -197,4 +197,33 @@ export const assetSources: readonly AssetSource[] = [
     sourceUrl,
     localPath: `assets/images/projects/${filename}`,
   })),
+  ...(
+    [
+      [
+        'Соотечественники РФ — экран 1',
+        'https://sootechestvenniki-rf.ru',
+        'sootechestvenniki-rf-01.png',
+      ],
+      [
+        'Соотечественники РФ — экран 2',
+        'https://sootechestvenniki-rf.ru',
+        'sootechestvenniki-rf-02.png',
+      ],
+      [
+        'Соотечественники РФ — экран 3',
+        'https://sootechestvenniki-rf.ru',
+        'sootechestvenniki-rf-03.png',
+      ],
+      ['ЦНИИ КМ «Прометей» — экран 1', 'https://crism-prometey.ru', 'crism-prometey-01.png'],
+      ['ЦНИИ КМ «Прометей» — экран 2', 'https://crism-prometey.ru', 'crism-prometey-02.png'],
+      ['ЦНИИ КМ «Прометей» — экран 3', 'https://crism-prometey.ru', 'crism-prometey-03.png'],
+      ['Командор Авто — экран 1', 'https://командор-авто.рф', 'komandor-auto-01.png'],
+      ['Командор Авто — экран 2', 'https://командор-авто.рф', 'komandor-auto-02.png'],
+      ['Командор Авто — экран 3', 'https://командор-авто.рф', 'komandor-auto-03.png'],
+    ] as const
+  ).map(([usage, sourceUrl, filename]) => ({
+    usage,
+    sourceUrl,
+    localPath: `assets/images/projects/${filename}`,
+  })),
 ] as const;

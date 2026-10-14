@@ -13,9 +13,9 @@ describe('portfolio content integrity', () => {
     expect(marqueeRowTwo).toHaveLength(10);
   });
 
-  it('records all 35 visual sources with unique local files', () => {
-    expect(assetSources).toHaveLength(35);
-    expect(new Set(assetSources.map((asset) => asset.localPath))).toHaveLength(35);
+  it('records all original and captured visual sources with unique local files', () => {
+    expect(assetSources).toHaveLength(44);
+    expect(new Set(assetSources.map((asset) => asset.localPath))).toHaveLength(44);
     expect(assetSources.every((asset) => asset.sourceUrl.startsWith('https://'))).toBe(true);
   });
 });

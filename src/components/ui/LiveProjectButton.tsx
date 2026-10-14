@@ -10,7 +10,7 @@ const buttonClasses =
 export function LiveProjectButton({ href }: LiveProjectButtonProps) {
   const content = (
     <>
-      Live Project
+      Открыть сайт
       <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={1.75} />
     </>
   );
@@ -29,7 +29,7 @@ export function LiveProjectButton({ href }: LiveProjectButtonProps) {
       type="button"
       disabled
       aria-disabled="true"
-      title="Live project destination is not configured"
+      title="Ссылка на проект не настроена"
     >
       {content}
     </button>

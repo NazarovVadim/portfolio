@@ -13,7 +13,7 @@ export function ContactSection() {
       <div className="mx-auto max-w-5xl">
         <FadeIn>
           <h2 className="mb-12 text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight sm:mb-16 md:mb-20">
-            Contact
+            Контакты
           </h2>
         </FadeIn>
 
@@ -26,7 +26,7 @@ export function ContactSection() {
           >
             <div className="grid gap-8 md:grid-cols-2">
               <label className="grid gap-3 text-sm font-medium uppercase tracking-widest sm:text-base">
-                Name
+                Имя
                 <input
                   className="min-h-14 rounded-2xl border border-[#0C0C0C]/20 bg-transparent px-5 py-4 text-base font-light normal-case tracking-normal outline-none transition-colors focus:border-[#0C0C0C] sm:text-lg"
                   type="text"
@@ -36,7 +36,7 @@ export function ContactSection() {
                 />
               </label>
               <label className="grid gap-3 text-sm font-medium uppercase tracking-widest sm:text-base">
-                Email
+                Почта
                 <input
                   className="min-h-14 rounded-2xl border border-[#0C0C0C]/20 bg-transparent px-5 py-4 text-base font-light normal-case tracking-normal outline-none transition-colors focus:border-[#0C0C0C] sm:text-lg"
                   type="email"
@@ -48,7 +48,7 @@ export function ContactSection() {
             </div>
 
             <label className="grid gap-3 text-sm font-medium uppercase tracking-widest sm:text-base">
-              Message
+              Сообщение
               <textarea
                 className="min-h-48 resize-y rounded-[28px] border border-[#0C0C0C]/20 bg-transparent px-5 py-4 text-base font-light normal-case tracking-normal outline-none transition-colors focus:border-[#0C0C0C] sm:text-lg"
                 name="message"
@@ -59,16 +59,16 @@ export function ContactSection() {
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <p id="contact-form-status" className="max-w-xl text-sm font-light opacity-60">
                 {isConfigured
-                  ? 'Tell me about your project and I will get back to you.'
-                  : 'Set VITE_CONTACT_FORM_ENDPOINT to enable message delivery.'}
+                  ? 'Расскажите о задаче — я свяжусь с вами и предложу решение.'
+                  : 'Укажите VITE_CONTACT_FORM_ENDPOINT, чтобы включить отправку сообщений.'}
               </p>
               <button
                 className="contact-button inline-flex min-w-44 items-center justify-center whitespace-nowrap rounded-full px-10 py-3.5 text-sm font-medium uppercase tracking-widest text-white transition-transform duration-200 enabled:motion-safe:hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#0C0C0C] md:px-12 md:py-4 md:text-base disabled:cursor-not-allowed disabled:saturate-50"
                 type="submit"
                 disabled={!isConfigured}
-                title={!isConfigured ? 'Contact form endpoint is not configured' : undefined}
+                title={!isConfigured ? 'Адрес отправки формы не настроен' : undefined}
               >
-                Send Message
+                Отправить
               </button>
             </div>
           </form>

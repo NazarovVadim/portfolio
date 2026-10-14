@@ -10,7 +10,7 @@ export function ProjectsSection() {
     >
       <FadeIn>
         <h2 className="hero-heading mb-16 text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight sm:mb-20 md:mb-28">
-          Project
+          Проекты
         </h2>
       </FadeIn>
 
