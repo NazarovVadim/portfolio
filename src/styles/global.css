@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-300.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-400.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-500.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-600.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-700.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-800.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Kanit';
+  src: url('/assets/fonts/kanit-latin-900.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #0c0c0c;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  background: #0c0c0c;
+}
+
+body {
+  min-width: 320px;
+  color: #d7e2ea;
+  font-family: 'Kanit', sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+  opacity: 1;
+}
+
+.hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contact-button {
+  background: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
+  box-shadow:
+    0 4px 4px rgba(181, 1, 167, 0.25),
+    4px 4px 12px #7721b1 inset;
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+.hero-viewport {
+  min-height: 100svh;
+}
+
+@media (min-width: 768px) {
+  .project-card-sticky {
+    position: sticky;
+    top: calc(8rem + var(--card-offset));
+    transform-origin: top center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
