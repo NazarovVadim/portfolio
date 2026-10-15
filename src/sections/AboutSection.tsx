@@ -1,3 +1,12 @@
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type MotionValue,
+} from 'framer-motion';
+import { useRef } from 'react';
 import { AnimatedText } from '../components/motion/AnimatedText';
 import { FadeIn } from '../components/motion/FadeIn';
 import { ContactButton } from '../components/ui/ContactButton';
@@ -13,6 +22,8 @@ const decorations = [
     className: 'left-[1%] top-[4%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]',
     delay: 0.1,
     x: -80,
+    rotation: [-35, 85],
+    drift: [-22, 28],
   },
   {
     src: 'assets/images/about/object-left.png',
@@ -20,6 +31,8 @@ const decorations = [
       'bottom-[8%] left-[3%] w-[100px] sm:left-[6%] sm:w-[140px] md:left-[10%] md:w-[180px]',
     delay: 0.25,
     x: -80,
+    rotation: [32, -72],
+    drift: [28, -18],
   },
   {
     src: 'assets/images/about/lego.png',
@@ -27,6 +40,8 @@ const decorations = [
       'right-[1%] top-[4%] w-[120px] sm:right-[2%] sm:w-[160px] md:right-[4%] md:w-[210px]',
     delay: 0.15,
     x: 80,
+    rotation: [38, -82],
+    drift: [-26, 24],
   },
   {
     src: 'assets/images/about/object-right.png',
@@ -34,32 +49,70 @@ const decorations = [
       'bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]',
     delay: 0.3,
     x: 80,
+    rotation: [-28, 74],
+    drift: [24, -22],
   },
 ] as const;
 
+interface AboutDecorationProps {
+  decoration: (typeof decorations)[number];
+  progress: MotionValue<number>;
+}
+
+function AboutDecoration({ decoration, progress }: AboutDecorationProps) {
+  const reduceMotion = useReducedMotion();
+  const rotate = useTransform(progress, [0, 1], [decoration.rotation[0], decoration.rotation[1]]);
+  const y = useTransform(progress, [0, 1], [decoration.drift[0], decoration.drift[1]]);
+  const scale = useTransform(progress, [0, 0.5, 1], [0.94, 1.04, 0.97]);
+
+  return (
+    <FadeIn
+      className={`pointer-events-none absolute z-0 ${decoration.className}`}
+      delay={decoration.delay}
+      duration={0.9}
+      x={decoration.x}
+      y={0}
+    >
+      <motion.div
+        style={{
+          rotate: reduceMotion ? 0 : rotate,
+          y: reduceMotion ? 0 : y,
+          scale: reduceMotion ? 1 : scale,
+          willChange: reduceMotion ? 'auto' : 'transform',
+        }}
+      >
+        <img
+          src={assetPath(decoration.src)}
+          alt=""
+          className="h-auto w-full"
+          loading="lazy"
+          decoding="async"
+        />
+      </motion.div>
+    </FadeIn>
+  );
+}
+
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 28,
+    mass: 0.35,
+  });
+
   return (
     <section
+      ref={sectionRef}
       id="about"
       className="relative flex min-h-screen scroll-mt-8 items-center justify-center overflow-hidden bg-[#0C0C0C] px-5 py-20 sm:px-8 md:px-10"
     >
       {decorations.map((decoration) => (
-        <FadeIn
-          key={decoration.src}
-          className={`pointer-events-none absolute z-0 ${decoration.className}`}
-          delay={decoration.delay}
-          duration={0.9}
-          x={decoration.x}
-          y={0}
-        >
-          <img
-            src={assetPath(decoration.src)}
-            alt=""
-            className="h-auto w-full"
-            loading="lazy"
-            decoding="async"
-          />
-        </FadeIn>
+        <AboutDecoration key={decoration.src} decoration={decoration} progress={smoothProgress} />
       ))}
 
       <div className="relative z-10 flex w-full flex-col items-center">

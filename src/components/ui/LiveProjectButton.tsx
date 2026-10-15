@@ -5,13 +5,17 @@ interface LiveProjectButtonProps {
 }
 
 const buttonClasses =
-  'inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 border-[#D7E2EA] px-8 py-3 text-sm font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 hover:bg-[#D7E2EA]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D7E2EA] sm:px-10 sm:py-3.5 sm:text-base';
+  'group inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 border-[#D7E2EA] px-8 py-3 text-sm font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 hover:bg-[#D7E2EA]/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D7E2EA] sm:px-10 sm:py-3.5 sm:text-base';
 
 export function LiveProjectButton({ href }: LiveProjectButtonProps) {
   const content = (
     <>
       Открыть сайт
-      <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={1.75} />
+      <ArrowUpRight
+        aria-hidden="true"
+        className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        strokeWidth={1.75}
+      />
     </>
   );
 
