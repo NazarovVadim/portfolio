@@ -8,6 +8,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { FadeIn } from '../components/motion/FadeIn';
+import { InkHeading } from '../components/ui/InkHeading';
 import { services } from '../data/services';
 
 const serviceIcons: readonly LucideIcon[] = [ServerCog, PanelsTopLeft, Bot, RefreshCw, Rocket];
@@ -37,9 +38,11 @@ export function ServicesSection() {
               <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] opacity-50 sm:text-sm">
                 Fullstack expertise / 01—05
               </p>
-              <h2 className="text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]">
-                Навыки
-              </h2>
+              <InkHeading
+                as="h2"
+                text="Навыки"
+                className="text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]"
+              />
             </div>
           </FadeIn>
           <FadeIn delay={0.12} y={20}>
@@ -76,9 +79,11 @@ export function ServicesSection() {
                   </div>
 
                   <div className="relative mt-auto pt-14">
-                    <h3 className="max-w-2xl text-[clamp(1.55rem,3vw,3.2rem)] font-semibold uppercase leading-[0.95] tracking-[-0.04em]">
-                      {service.name}
-                    </h3>
+                    <InkHeading
+                      as="h3"
+                      text={service.name}
+                      className="max-w-2xl text-[clamp(1.55rem,3vw,3.2rem)] font-semibold uppercase leading-[0.95] tracking-[-0.04em]"
+                    />
                     <p className="mt-5 max-w-2xl text-[clamp(0.9rem,1.3vw,1.15rem)] font-light leading-relaxed text-[#D7E2EA]/65">
                       {service.description}
                     </p>

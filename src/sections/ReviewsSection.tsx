@@ -1,5 +1,6 @@
 import { Quote, Sparkles, Star } from 'lucide-react';
 import { FadeIn } from '../components/motion/FadeIn';
+import { InkHeading } from '../components/ui/InkHeading';
 import { reviews } from '../data/reviews';
 
 const reviewLayouts = [
@@ -27,9 +28,11 @@ export function ReviewsSection() {
                 <Sparkles className="size-4" aria-hidden="true" />
                 Результат глазами клиента
               </div>
-              <h2 className="hero-heading text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]">
-                Отзывы
-              </h2>
+              <InkHeading
+                as="h2"
+                text="Отзывы"
+                className="hero-heading text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]"
+              />
             </div>
           </FadeIn>
           <FadeIn delay={0.12} y={20}>

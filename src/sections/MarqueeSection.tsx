@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { FadeIn } from '../components/motion/FadeIn';
+import { InkHeading } from '../components/ui/InkHeading';
 import { marqueeRowOne, marqueeRowTwo, type MarqueeImage } from '../data/marqueeImages';
 
 interface MarqueeRowProps {
@@ -97,11 +98,11 @@ export function MarqueeSection() {
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-fuchsia-300 sm:text-sm">
             Real projects × Fullstack engineering
           </p>
-          <h2 className="max-w-6xl text-[clamp(3rem,8vw,118px)] font-black uppercase leading-[0.86] tracking-[-0.06em] text-[#D7E2EA]">
-            Код. Дизайн.
-            <br />
-            Результат.
-          </h2>
+          <InkHeading
+            as="h2"
+            text={'Код. Дизайн.\nРезультат.'}
+            className="max-w-6xl text-[clamp(3rem,8vw,118px)] font-black uppercase leading-[0.86] tracking-[-0.06em] text-[#D7E2EA]"
+          />
         </FadeIn>
       </div>
       <div className="relative flex flex-col gap-3">

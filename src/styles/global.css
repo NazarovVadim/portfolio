@@ -145,55 +145,135 @@ button:disabled {
   opacity: 1;
 }
 
-h1,
-h2,
-h3 {
-  transition: filter 350ms ease;
+.blob-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  display: none;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  will-change: transform;
 }
 
-body.has-blob-cursor h1:hover,
-body.has-blob-cursor h2:hover,
-body.has-blob-cursor h3:hover {
-  filter: drop-shadow(0 0 24px rgba(190, 76, 255, 0.28));
+.blob-cursor[data-visible='true'] {
+  opacity: 1;
 }
 
 .blob-cursor-shape {
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 58% 42% 63% 37% / 44% 61% 39% 56%;
-  box-shadow:
-    0 0 26px rgba(241, 0, 220, 0.5),
-    0 0 70px rgba(118, 33, 176, 0.24);
-  animation: blob-cursor-morph 3.8s ease-in-out infinite alternate;
-  will-change: width, height, transform, border-radius;
+  position: absolute;
+  top: -3px;
+  left: -2px;
+  width: 22px;
+  height: 29px;
+  transform-origin: 20% 12%;
+  clip-path: polygon(0 0, 0 78%, 20% 59%, 35% 100%, 49% 94%, 34% 54%, 62% 53%);
+  background: linear-gradient(145deg, #ffffff 0%, #d7e2ea 48%, #7621b0 100%);
+  filter: drop-shadow(0 2px 2px rgba(12, 12, 12, 0.7)) drop-shadow(0 0 5px rgba(118, 33, 176, 0.45));
+  transition:
+    scale 90ms ease,
+    filter 160ms ease;
+  will-change: scale;
 }
 
-@keyframes blob-cursor-morph {
-  0% {
-    border-radius: 58% 42% 63% 37% / 44% 61% 39% 56%;
-  }
-  50% {
-    border-radius: 36% 64% 42% 58% / 62% 39% 61% 38%;
-  }
-  100% {
-    border-radius: 67% 33% 55% 45% / 38% 53% 47% 62%;
-  }
+.blob-cursor-shape[data-mode='interactive'],
+.blob-cursor-shape[data-mode='heading'] {
+  scale: 1.12;
+  filter: drop-shadow(0 2px 2px rgba(12, 12, 12, 0.72)) drop-shadow(0 0 8px rgba(241, 0, 220, 0.55));
+}
+
+.blob-cursor-shape[data-mode='text'] {
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 28px;
+  scale: 1;
+  clip-path: none;
+  border-radius: 999px;
+  background: #7621b0;
+  filter: drop-shadow(0 0 6px rgba(118, 33, 176, 0.65));
+}
+
+.blob-cursor-shape[data-pressed='true'] {
+  scale: 0.78;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .blob-cursor {
+    display: block;
+  }
+
   body.has-blob-cursor,
   body.has-blob-cursor * {
     cursor: none !important;
   }
+}
 
-  body.has-blob-cursor input,
-  body.has-blob-cursor textarea,
-  body.has-blob-cursor select,
-  body.has-blob-cursor [contenteditable='true'] {
-    cursor: text !important;
+.ink-heading {
+  position: relative;
+  isolation: isolate;
+}
+
+.ink-heading-base,
+.ink-heading-reveal {
+  display: block;
+  white-space: pre-line;
+}
+
+.ink-heading-reveal {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  color: transparent;
+  background: linear-gradient(
+    105deg,
+    #d6ff42 0%,
+    #70f0c0 18%,
+    #72a8ff 38%,
+    #ef80ff 58%,
+    #f100dc 76%,
+    #ff9a3d 100%
+  );
+  background-size: 220% 220%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  filter: drop-shadow(0 2px 0 rgba(12, 12, 12, 0.65)) drop-shadow(0 0 14px rgba(182, 0, 168, 0.35));
+  transition: opacity 380ms ease;
+  animation: ink-heading-spectrum 5s linear infinite;
+  will-change: mask-image, opacity;
+}
+
+@keyframes ink-heading-spectrum {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
 .hero-heading {
+  background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ink-heading.hero-heading {
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.ink-heading.hero-heading .ink-heading-base {
   background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -207,6 +287,33 @@ body.has-blob-cursor h3:hover {
     4px 4px 12px #7721b1 inset;
   outline: 2px solid #fff;
   outline-offset: -3px;
+}
+
+.contact-field {
+  display: block;
+  padding: 1px;
+  border-radius: 22px;
+  background: rgba(12, 12, 12, 0.11);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 8px 24px rgba(38, 13, 44, 0.04);
+  transition:
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.contact-field input,
+.contact-field textarea {
+  outline: none !important;
+  box-shadow: none;
+  caret-color: #7621b0;
+}
+
+.contact-field:focus-within {
+  background: linear-gradient(123deg, #b600a8 0%, #7621b0 58%, #be4c00 100%);
+  box-shadow:
+    0 0 0 4px rgba(118, 33, 176, 0.09),
+    0 16px 40px rgba(91, 21, 105, 0.12);
 }
 
 .hero-viewport {

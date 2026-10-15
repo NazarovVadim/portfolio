@@ -2,6 +2,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion
 import { useRef, type CSSProperties } from 'react';
 import type { Project } from '../../data/projects';
 import { getProjectTargetScale } from '../../lib/projectScale';
+import { InkHeading } from '../ui/InkHeading';
 import { LiveProjectButton } from '../ui/LiveProjectButton';
 
 interface ProjectCardProps {
@@ -39,9 +40,11 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           <p className="text-xs font-light uppercase tracking-widest text-[#D7E2EA]/70 sm:text-sm">
             {project.category}
           </p>
-          <h3 className="col-start-2 text-[clamp(1.2rem,3vw,2.8rem)] font-medium uppercase leading-none text-[#D7E2EA] md:col-start-auto">
-            {project.name}
-          </h3>
+          <InkHeading
+            as="h3"
+            text={project.name}
+            className="col-start-2 text-[clamp(1.2rem,3vw,2.8rem)] font-medium uppercase leading-none text-[#D7E2EA] md:col-start-auto"
+          />
           <div className="col-span-2 justify-self-end sm:col-span-1 sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:self-center md:col-start-auto md:row-span-1">
             <LiveProjectButton href={project.liveUrl} />
           </div>

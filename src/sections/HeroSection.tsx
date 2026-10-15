@@ -1,6 +1,7 @@
 import { FadeIn } from '../components/motion/FadeIn';
 import { Magnet } from '../components/motion/Magnet';
 import { ContactButton } from '../components/ui/ContactButton';
+import { InkHeading } from '../components/ui/InkHeading';
 import { assetPath } from '../lib/assets';
 
 const navigation = [
@@ -29,9 +30,11 @@ export function HeroSection() {
 
       <div className="relative z-0 mt-6 overflow-hidden sm:mt-4 md:-mt-5">
         <FadeIn delay={0.15} y={40}>
-          <h1 className="hero-heading w-full whitespace-nowrap text-[10.5vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]">
-            Привет, я Вадим
-          </h1>
+          <InkHeading
+            as="h1"
+            text="Привет, я Вадим"
+            className="hero-heading w-full whitespace-nowrap text-[10.5vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]"
+          />
         </FadeIn>
       </div>
 

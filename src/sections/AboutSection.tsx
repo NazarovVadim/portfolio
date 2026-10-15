@@ -1,6 +1,7 @@
 import { AnimatedText } from '../components/motion/AnimatedText';
 import { FadeIn } from '../components/motion/FadeIn';
 import { ContactButton } from '../components/ui/ContactButton';
+import { InkHeading } from '../components/ui/InkHeading';
 import { assetPath } from '../lib/assets';
 
 const aboutText =
@@ -64,9 +65,11 @@ export function AboutSection() {
       <div className="relative z-10 flex w-full flex-col items-center">
         <div className="flex flex-col items-center gap-10 sm:gap-14 md:gap-16">
           <FadeIn delay={0} y={40}>
-            <h2 className="hero-heading text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight">
-              Обо мне
-            </h2>
+            <InkHeading
+              as="h2"
+              text="Обо мне"
+              className="hero-heading text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight"
+            />
           </FadeIn>
           <AnimatedText
             text={aboutText}

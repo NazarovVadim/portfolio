@@ -1,28 +1,21 @@
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 type CursorMode = 'default' | 'interactive' | 'heading' | 'text';
 
-const cursorSizes: Record<CursorMode, { width: number; height: number }> = {
-  default: { width: 22, height: 22 },
-  interactive: { width: 54, height: 54 },
-  heading: { width: 138, height: 108 },
-  text: { width: 0, height: 0 },
-};
-
 export function BlobCursor() {
   const reduceMotion = useReducedMotion();
-  const pointerX = useMotionValue(-200);
-  const pointerY = useMotionValue(-200);
-  const x = useSpring(pointerX, { stiffness: 620, damping: 38, mass: 0.22 });
-  const y = useSpring(pointerY, { stiffness: 620, damping: 38, mass: 0.22 });
-  const [mode, setMode] = useState<CursorMode>('default');
-  const [visible, setVisible] = useState(false);
-  const [pressed, setPressed] = useState(false);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const shapeRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<number | null>(null);
+  const pointerRef = useRef({ x: -200, y: -200 });
+  const modeRef = useRef<CursorMode>('default');
 
   useEffect(() => {
+    const cursor = cursorRef.current;
+    const shape = shapeRef.current;
     const canHover = window.matchMedia('(hover: hover) and (pointer: fine)');
-    if (reduceMotion || !canHover.matches) return;
+    if (reduceMotion || !canHover.matches || !cursor || !shape) return;
 
     document.body.classList.add('has-blob-cursor');
 
@@ -34,18 +27,41 @@ export function BlobCursor() {
       return 'default';
     };
 
-    const handlePointerMove = (event: PointerEvent) => {
-      pointerX.set(event.clientX);
-      pointerY.set(event.clientY);
-      setVisible(true);
-      setMode(detectMode(event.target));
+    const renderPosition = () => {
+      frameRef.current = null;
+      cursor.style.transform = `translate3d(${pointerRef.current.x}px, ${pointerRef.current.y}px, 0)`;
     };
-    const handlePointerOver = (event: PointerEvent) => setMode(detectMode(event.target));
-    const handlePointerDown = () => setPressed(true);
-    const handlePointerUp = () => setPressed(false);
-    const handlePointerLeave = () => setVisible(false);
-    const handlePointerEnter = () => setVisible(true);
 
+    const updateMode = (target: EventTarget | null) => {
+      const nextMode = detectMode(target);
+      if (nextMode === modeRef.current) return;
+      modeRef.current = nextMode;
+      shape.dataset.mode = nextMode;
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      pointerRef.current = { x: event.clientX, y: event.clientY };
+      cursor.dataset.visible = 'true';
+      updateMode(event.target);
+      if (frameRef.current === null) frameRef.current = requestAnimationFrame(renderPosition);
+    };
+    const handlePointerOver = (event: PointerEvent) => updateMode(event.target);
+    const handlePointerDown = () => {
+      shape.dataset.pressed = 'true';
+    };
+    const handlePointerUp = () => {
+      shape.dataset.pressed = 'false';
+    };
+    const handlePointerLeave = () => {
+      cursor.dataset.visible = 'false';
+    };
+    const handlePointerEnter = () => {
+      cursor.dataset.visible = 'true';
+    };
+
+    shape.dataset.mode = 'default';
+    shape.dataset.pressed = 'false';
+    cursor.dataset.visible = 'false';
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerover', handlePointerOver, { passive: true });
     window.addEventListener('pointerdown', handlePointerDown, { passive: true });
@@ -61,39 +77,15 @@ export function BlobCursor() {
       window.removeEventListener('pointerup', handlePointerUp);
       document.documentElement.removeEventListener('pointerleave', handlePointerLeave);
       document.documentElement.removeEventListener('pointerenter', handlePointerEnter);
+      if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
     };
-  }, [pointerX, pointerY, reduceMotion]);
+  }, [reduceMotion]);
 
   if (reduceMotion) return null;
 
-  const size = cursorSizes[mode];
-  const isHeading = mode === 'heading';
-
   return (
-    <motion.div
-      className="pointer-events-none fixed left-0 top-0 z-[9999] hidden md:block"
-      style={{ x, y }}
-      aria-hidden="true"
-    >
-      <motion.div
-        className="blob-cursor-shape"
-        style={{
-          translate: '-50% -50%',
-          mixBlendMode: isHeading ? 'difference' : 'normal',
-        }}
-        animate={{
-          width: size.width,
-          height: size.height,
-          opacity: visible && mode !== 'text' ? 1 : 0,
-          scale: pressed ? 0.78 : 1,
-          background: isHeading
-            ? 'rgba(255, 255, 255, 0.96)'
-            : mode === 'interactive'
-              ? 'linear-gradient(135deg, #F100DC, #7A24D3 60%, #FF7A28)'
-              : 'linear-gradient(135deg, #F100DC, #7A24D3 58%, #FF7A28)',
-        }}
-        transition={{ type: 'spring', stiffness: 420, damping: 28, mass: 0.35 }}
-      />
-    </motion.div>
+    <div ref={cursorRef} className="blob-cursor" aria-hidden="true">
+      <div ref={shapeRef} className="blob-cursor-shape" />
+    </div>
   );
 }
