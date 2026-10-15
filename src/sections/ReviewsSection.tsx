@@ -1,4 +1,4 @@
-import { Quote, Sparkles, Star } from 'lucide-react';
+import { Quote, Sparkles } from 'lucide-react';
 import { FadeIn } from '../components/motion/FadeIn';
 import { InkHeading } from '../components/ui/InkHeading';
 import { reviews } from '../data/reviews';
@@ -21,7 +21,7 @@ export function ReviewsSection() {
       <div className="pointer-events-none absolute -right-52 top-20 size-[600px] rounded-full bg-fuchsia-700/20 blur-[150px]" />
 
       <div className="relative mx-auto max-w-[1500px]">
-        <div className="mb-16 grid items-end gap-8 sm:mb-20 md:mb-24 md:grid-cols-[1fr_auto]">
+        <div className="mb-16 sm:mb-20 md:mb-24">
           <FadeIn>
             <div>
               <div className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] text-fuchsia-300 sm:text-sm">
@@ -33,19 +33,6 @@ export function ReviewsSection() {
                 text="Отзывы"
                 className="hero-heading text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]"
               />
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.12} y={20}>
-            <div className="flex items-center gap-4 md:pb-1">
-              <span className="text-5xl font-black tracking-[-0.06em] sm:text-6xl">5.0</span>
-              <div>
-                <div className="mb-1 flex gap-1 text-amber-300">
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <Star key={index} className="size-4 fill-current" aria-hidden="true" />
-                  ))}
-                </div>
-                <p className="text-xs uppercase tracking-[0.25em] text-white/45">Demo stories</p>
-              </div>
             </div>
           </FadeIn>
         </div>
@@ -64,15 +51,12 @@ export function ReviewsSection() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1.5px)] bg-[size:22px_22px] opacity-20 [mask-image:linear-gradient(to_bottom,black,transparent_65%)]" />
 
-                <div className="relative flex items-start justify-between gap-4">
+                <div className="relative">
                   <Quote
                     className={`${index === 0 ? 'size-16 sm:size-20' : 'size-11'} text-white/90`}
                     strokeWidth={1.1}
                     aria-hidden="true"
                   />
-                  <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/60 backdrop-blur-md">
-                    Демо-отзыв
-                  </span>
                 </div>
 
                 <p
