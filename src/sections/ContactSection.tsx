@@ -1,3 +1,4 @@
+import { useState, type FormEvent } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { FadeIn } from '../components/motion/FadeIn';
 import { InkHeading } from '../components/ui/InkHeading';
@@ -7,8 +8,48 @@ const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
 const inputClasses =
   'block w-full rounded-[21px] border-0 bg-white px-5 py-4 text-base font-light normal-case tracking-normal text-[#0C0C0C] outline-none placeholder:text-[#0C0C0C]/25 sm:px-6 sm:py-5 sm:text-lg';
 
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
+
 export function ContactSection() {
   const isConfigured = Boolean(contactEndpoint);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!contactEndpoint || submitStatus === 'submitting') {
+      return;
+    }
+
+    const form = event.currentTarget;
+    setSubmitStatus('submitting');
+
+    try {
+      const response = await fetch(contactEndpoint, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      form.reset();
+      setSubmitStatus('success');
+    } catch {
+      setSubmitStatus('error');
+    }
+  };
+
+  const statusMessage =
+    submitStatus === 'success'
+      ? 'Сообщение отправлено. Скоро свяжусь с вами.'
+      : submitStatus === 'error'
+        ? 'Не удалось отправить сообщение. Попробуйте ещё раз.'
+        : '';
 
   return (
     <section
@@ -37,8 +78,10 @@ export function ContactSection() {
             className="grid gap-7 rounded-[32px] border border-black/[0.07] bg-[#F5F3F6]/90 p-5 shadow-[0_35px_100px_rgba(56,15,64,0.12)] backdrop-blur-xl sm:gap-8 sm:rounded-[44px] sm:p-8 md:p-10"
             action={contactEndpoint}
             method="post"
-            aria-describedby={!isConfigured ? 'contact-form-status' : undefined}
+            onSubmit={(event) => void handleSubmit(event)}
+            aria-describedby={statusMessage ? 'contact-form-status' : undefined}
           >
+            <input type="hidden" name="_subject" value="Новая заявка с портфолио" />
             <div className="grid gap-7 md:grid-cols-2 md:gap-5">
               <label className="grid gap-3 text-xs font-semibold uppercase tracking-[0.24em] sm:text-sm">
                 Имя
@@ -80,22 +123,24 @@ export function ContactSection() {
               </span>
             </label>
 
-            <div className="flex flex-col items-start gap-5 pt-1 sm:flex-row sm:items-center sm:justify-between">
-              <p
-                id="contact-form-status"
-                className="max-w-xl text-sm font-light leading-relaxed opacity-45"
-              >
-                {isConfigured
-                  ? 'Расскажите о задаче — я свяжусь с вами и предложу решение.'
-                  : 'Укажите VITE_CONTACT_FORM_ENDPOINT, чтобы включить отправку сообщений.'}
-              </p>
+            <div className="flex min-h-14 flex-col items-start gap-5 pt-1 sm:flex-row sm:items-center sm:justify-end">
+              {statusMessage && (
+                <p
+                  id="contact-form-status"
+                  className="mr-auto max-w-xl text-sm font-light leading-relaxed opacity-60"
+                  role="status"
+                  aria-live="polite"
+                >
+                  {statusMessage}
+                </p>
+              )}
               <button
                 className="contact-button group inline-flex min-w-48 items-center justify-center gap-3 whitespace-nowrap rounded-full px-10 py-4 text-sm font-medium uppercase tracking-widest text-white transition-transform duration-200 enabled:motion-safe:hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7621B0] md:px-12 md:text-base disabled:saturate-50"
                 type="submit"
-                disabled={!isConfigured}
-                title={!isConfigured ? 'Адрес отправки формы не настроен' : undefined}
+                disabled={!isConfigured || submitStatus === 'submitting'}
+                title={!isConfigured ? 'Форма временно недоступна' : undefined}
               >
-                Отправить
+                {submitStatus === 'submitting' ? 'Отправляю…' : 'Отправить'}
                 <ArrowUpRight
                   className="size-4 transition-transform group-enabled:group-hover:translate-x-0.5 group-enabled:group-hover:-translate-y-0.5"
                   aria-hidden="true"
