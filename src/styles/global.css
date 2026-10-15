@@ -136,6 +136,15 @@ select,
   background: linear-gradient(180deg, #ff4bea 0%, #9845d6 55%, #ff7128 100%);
 }
 
+.marquee-scroll {
+  scrollbar-width: none;
+  overscroll-behavior-inline: contain;
+}
+
+.marquee-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 button,
 a {
   -webkit-tap-highlight-color: transparent;

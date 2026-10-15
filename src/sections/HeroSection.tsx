@@ -32,7 +32,7 @@ export function HeroSection() {
         <InkHeading
           as="h1"
           text="Привет, я Вадим"
-          className="hero-heading w-full whitespace-nowrap text-[9vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]"
+          className="hero-heading w-full whitespace-nowrap text-center text-[9vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]"
         />
       </div>
 
