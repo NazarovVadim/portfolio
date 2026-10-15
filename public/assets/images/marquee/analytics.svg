@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="540" viewBox="0 0 840 540">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08090d"/><stop offset="1" stop-color="#053838"/></linearGradient><radialGradient id="r"><stop stop-color="#00d5d5" stop-opacity=".7"/><stop offset="1" stop-color="#00d5d5" stop-opacity="0"/></radialGradient><filter id="b"><feGaussianBlur stdDeviation="30"/></filter></defs>
+<rect width="840" height="540" rx="38" fill="url(#g)"/>
+<circle cx="690" cy="100" r="210" fill="url(#r)" filter="url(#b)"/>
+<g stroke="#fff" stroke-opacity=".055"><path d="M0 108h840M0 216h840M0 324h840M0 432h840M140 0v540M280 0v540M420 0v540M560 0v540M700 0v540"/></g>
+<text x="55" y="74" fill="#00d5d5" font-family="Arial" font-size="21" letter-spacing="5">ANALYTICS</text>
+<text x="55" y="158" fill="#fff" font-family="Arial" font-size="55" font-weight="700">Решения на</text>
+<text x="55" y="218" fill="#fff" font-family="Arial" font-size="55" font-weight="700">основе данных</text>
+<rect x="55" y="282" width="346" height="126" rx="26" fill="#fff" fill-opacity=".055" stroke="#fff" stroke-opacity=".14"/>
+<circle cx="108" cy="345" r="25" fill="#00d5d5" fill-opacity=".85"/><path d="M154 327h196M154 347h148M154 367h174" stroke="#d7e2ea" stroke-opacity=".65" stroke-width="9" stroke-linecap="round"/>
+<rect x="495" y="258" width="28" height="182" rx="14" fill="#00d5d5" fill-opacity="0.28"/><rect x="547" y="370" width="28" height="70" rx="14" fill="#00d5d5" fill-opacity="0.38"/><rect x="599" y="342" width="28" height="98" rx="14" fill="#00d5d5" fill-opacity="0.48"/><rect x="651" y="314" width="28" height="126" rx="14" fill="#00d5d5" fill-opacity="0.58"/><rect x="703" y="286" width="28" height="154" rx="14" fill="#00d5d5" fill-opacity="0.68"/>
+<text x="55" y="482" fill="#d7e2ea" fill-opacity=".62" font-family="Arial" font-size="18" letter-spacing="3">EVENTS  •  FUNNELS  •  GROWTH</text>
+</svg>
