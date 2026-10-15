@@ -29,13 +29,11 @@ export function HeroSection() {
       </FadeIn>
 
       <div className="relative z-0 mt-6 overflow-hidden sm:mt-4 md:-mt-5">
-        <FadeIn delay={0.15} y={40}>
-          <InkHeading
-            as="h1"
-            text="Привет, я Вадим"
-            className="hero-heading w-full whitespace-nowrap text-[10.5vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]"
-          />
-        </FadeIn>
+        <InkHeading
+          as="h1"
+          text="Привет, я Вадим"
+          className="hero-heading w-full whitespace-nowrap text-[9vw] font-black uppercase leading-none tracking-tight sm:text-[10.8vw] md:text-[11vw] lg:text-[11.2vw]"
+        />
       </div>
 
       <div className="pointer-events-none absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 sm:bottom-0 sm:top-auto sm:translate-y-0">
