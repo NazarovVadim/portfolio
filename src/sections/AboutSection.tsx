@@ -70,7 +70,7 @@ export function AboutSection() {
           </FadeIn>
           <AnimatedText
             text={aboutText}
-            className="max-w-[560px] text-center text-[clamp(1rem,2vw,1.35rem)] font-medium leading-relaxed text-[#D7E2EA]"
+            className="max-w-[900px] text-center text-[clamp(1rem,1.8vw,1.4rem)] font-medium leading-relaxed text-[#D7E2EA]"
           />
         </div>
         <div className="mt-16 sm:mt-20 md:mt-24">

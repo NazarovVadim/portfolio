@@ -16,8 +16,9 @@ function AnimatedCharacter({
   progress,
   reduceMotion,
 }: AnimatedCharacterProps) {
-  const start = index / total;
-  const end = Math.min((index + 1) / total, 1);
+  const sequencePosition = index / Math.max(total - 1, 1);
+  const start = sequencePosition * 0.68;
+  const end = Math.min(start + 0.14, 1);
   const opacity = useTransform(progress, [start, end], [0.2, 1]);
 
   return (
@@ -40,22 +41,44 @@ export function AnimatedText({ text, className }: AnimatedTextProps) {
   const reduceMotion = useReducedMotion() ?? false;
   const { scrollYProgress } = useScroll({
     target: paragraphRef,
-    offset: ['start 0.8', 'end 0.2'],
+    offset: ['start 0.85', 'end 0.5'],
   });
   const characters = Array.from(text);
+  let characterOffset = 0;
+  const segments = text
+    .split(/(\s+)/)
+    .filter(Boolean)
+    .map((segment) => {
+      const segmentCharacters = Array.from(segment);
+      const startIndex = characterOffset;
+      characterOffset += segmentCharacters.length;
+      return { segment, characters: segmentCharacters, startIndex };
+    });
 
   return (
     <p ref={paragraphRef} className={className} aria-label={text}>
-      {characters.map((character, index) => (
-        <AnimatedCharacter
-          key={`${index}-${character}`}
-          character={character}
-          index={index}
-          total={characters.length}
-          progress={scrollYProgress}
-          reduceMotion={reduceMotion}
-        />
-      ))}
+      {segments.map(({ segment, characters: segmentCharacters, startIndex }, segmentIndex) => {
+        const renderedCharacters = segmentCharacters.map((character, characterIndex) => (
+          <AnimatedCharacter
+            key={`${startIndex + characterIndex}-${character}`}
+            character={character}
+            index={startIndex + characterIndex}
+            total={characters.length}
+            progress={scrollYProgress}
+            reduceMotion={reduceMotion}
+          />
+        ));
+
+        if (/^\s+$/.test(segment)) {
+          return renderedCharacters;
+        }
+
+        return (
+          <span key={`${segmentIndex}-${segment}`} className="inline-block" aria-hidden="true">
+            {renderedCharacters}
+          </span>
+        );
+      })}
     </p>
   );
 }

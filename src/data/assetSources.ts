@@ -220,6 +220,9 @@ export const assetSources: readonly AssetSource[] = [
       ['Командор Авто — экран 1', 'https://командор-авто.рф', 'komandor-auto-01.png'],
       ['Командор Авто — экран 2', 'https://командор-авто.рф', 'komandor-auto-02.png'],
       ['Командор Авто — экран 3', 'https://командор-авто.рф', 'komandor-auto-03.png'],
+      ['Марки СНГ — экран 1', 'https://marki-sng.ru', 'marki-sng-01.png'],
+      ['Марки СНГ — экран 2', 'https://marki-sng.ru', 'marki-sng-02.png'],
+      ['Марки СНГ — экран 3', 'https://marki-sng.ru', 'marki-sng-03.png'],
     ] as const
   ).map(([usage, sourceUrl, filename]) => ({
     usage,

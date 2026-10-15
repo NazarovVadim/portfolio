@@ -42,4 +42,15 @@ export const projects: readonly Project[] = [
     ],
     liveUrl: 'https://командор-авто.рф',
   },
+  {
+    number: '04',
+    name: 'Марки СНГ',
+    category: 'Клиентский проект',
+    images: [
+      assetPath('assets/images/projects/marki-sng-01.png'),
+      assetPath('assets/images/projects/marki-sng-02.png'),
+      assetPath('assets/images/projects/marki-sng-03.png'),
+    ],
+    liveUrl: 'https://marki-sng.ru',
+  },
 ] as const;
