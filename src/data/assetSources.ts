@@ -2,6 +2,7 @@ export interface AssetSource {
   usage: string;
   sourceUrl: string;
   localPath: string;
+  status?: 'active' | 'retired';
 }
 
 export const assetSources: readonly AssetSource[] = [
@@ -119,6 +120,7 @@ export const assetSources: readonly AssetSource[] = [
     usage,
     sourceUrl,
     localPath: `assets/animations/marquee/${filename}`,
+    status: 'retired' as const,
   })),
   {
     usage: 'About moon decoration',

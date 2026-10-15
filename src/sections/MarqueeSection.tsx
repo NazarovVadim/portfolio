@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { FadeIn } from '../components/motion/FadeIn';
 import { marqueeRowOne, marqueeRowTwo, type MarqueeImage } from '../data/marqueeImages';
 
 interface MarqueeRowProps {
@@ -11,17 +12,22 @@ function MarqueeRow({ images, rowRef }: MarqueeRowProps) {
     <div ref={rowRef} className="flex w-max gap-3" style={{ willChange: 'transform' }}>
       {[0, 1, 2].flatMap((repeat) =>
         images.map((image) => (
-          <img
+          <div
             key={`${repeat}-${image.id}`}
-            src={image.src}
-            alt={repeat === 0 ? image.alt : ''}
+            className="group relative h-[270px] w-[420px] shrink-0 overflow-hidden rounded-[28px] border border-white/10 bg-[#131313] shadow-[0_20px_60px_rgba(0,0,0,0.38)]"
             aria-hidden={repeat > 0}
-            className="h-[270px] w-[420px] shrink-0 rounded-2xl object-cover"
-            width="420"
-            height="270"
-            loading="lazy"
-            decoding="async"
-          />
+          >
+            <img
+              src={image.src}
+              alt={repeat === 0 ? image.alt : ''}
+              className="h-full w-full object-cover transition duration-700 group-hover:scale-[1.035]"
+              width="420"
+              height="270"
+              loading="lazy"
+              decoding="async"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/[0.04]" />
+          </div>
         )),
       )}
     </div>
@@ -82,10 +88,23 @@ export function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      aria-label="Selected motion work"
-      className="overflow-hidden bg-[#0C0C0C] pb-10 pt-24 sm:pt-32 md:pt-40"
+      aria-label="Проекты и направления разработки"
+      className="relative overflow-hidden bg-[#0C0C0C] pb-16 pt-24 sm:pb-20 sm:pt-32 md:pb-24 md:pt-40"
     >
-      <div className="flex flex-col gap-3">
+      <div className="pointer-events-none absolute left-1/2 top-1/4 size-[700px] -translate-x-1/2 rounded-full bg-fuchsia-800/10 blur-[160px]" />
+      <div className="relative mx-auto mb-14 max-w-[1500px] px-5 sm:mb-16 sm:px-8 md:mb-20 md:px-10">
+        <FadeIn>
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-fuchsia-300 sm:text-sm">
+            Real projects × Fullstack engineering
+          </p>
+          <h2 className="max-w-6xl text-[clamp(3rem,8vw,118px)] font-black uppercase leading-[0.86] tracking-[-0.06em] text-[#D7E2EA]">
+            Код. Дизайн.
+            <br />
+            Результат.
+          </h2>
+        </FadeIn>
+      </div>
+      <div className="relative flex flex-col gap-3">
         <MarqueeRow images={marqueeRowOne} rowRef={rowOneRef} />
         <MarqueeRow images={marqueeRowTwo} rowRef={rowTwoRef} />
       </div>

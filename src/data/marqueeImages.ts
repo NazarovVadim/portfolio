@@ -6,35 +6,47 @@ export interface MarqueeImage {
   alt: string;
 }
 
-const image = (id: string, filename: string, alt: string): MarqueeImage => ({
+const image = (id: string, path: string, alt: string): MarqueeImage => ({
   id,
-  src: assetPath(`assets/animations/marquee/${filename}`),
+  src: assetPath(`assets/images/${path}`),
   alt,
 });
 
 export const marqueeRowOne: readonly MarqueeImage[] = [
-  image('space-voyage', 'space-voyage.gif', 'Space Voyage motion design preview'),
-  image('codenest', 'codenest.gif', 'Codenest motion design preview'),
-  image('vex-ventures', 'vex-ventures.gif', 'Vex Ventures motion design preview'),
-  image('stellar-ai-v2', 'stellar-ai-v2.gif', 'Stellar AI motion design preview'),
-  image('asme', 'asme.gif', 'Asme motion design preview'),
-  image('transform-data', 'transform-data.gif', 'Transform Data motion design preview'),
-  image('vitara', 'vitara.gif', 'Vitara motion design preview'),
-  image('terra', 'terra.gif', 'Terra motion design preview'),
-  image('skyelite', 'skyelite.gif', 'Skyelite motion design preview'),
-  image('aethera', 'aethera.gif', 'Aethera motion design preview'),
-  image('designpro', 'designpro.gif', 'Designpro motion design preview'),
+  image(
+    'sootechestvenniki-hero',
+    'projects/sootechestvenniki-rf-01.png',
+    'Проект Соотечественники РФ',
+  ),
+  image('backend-api', 'marquee/backend-api.svg', 'Backend и API разработка'),
+  image('prometey-main', 'projects/crism-prometey-01.png', 'Проект ЦНИИ КМ Прометей'),
+  image('frontend-ui', 'marquee/frontend-ui.svg', 'Frontend и интерфейсы'),
+  image('komandor-main', 'projects/komandor-auto-01.png', 'Проект Командор Авто'),
+  image('telegram-bots', 'marquee/telegram-bots.svg', 'Разработка Telegram-ботов'),
+  image('marki-main', 'projects/marki-sng-01.png', 'Проект Марки СНГ'),
+  image('onec-integration', 'marquee/onec-integration.svg', 'Интеграции с 1С'),
+  image(
+    'sootechestvenniki-content',
+    'projects/sootechestvenniki-rf-02.png',
+    'Интерфейс проекта Соотечественники РФ',
+  ),
+  image('database', 'marquee/database.svg', 'Проектирование баз данных'),
+  image('prometey-content', 'projects/crism-prometey-02.png', 'Интерфейс проекта Прометей'),
 ] as const;
 
 export const marqueeRowTwo: readonly MarqueeImage[] = [
-  image('stellar-ai', 'stellar-ai.gif', 'Stellar AI motion design preview'),
-  image('xportfolio', 'xportfolio.gif', 'Xportfolio motion design preview'),
-  image('orbit-web3', 'orbit-web3.gif', 'Orbit Web3 motion design preview'),
-  image('nexora', 'nexora.gif', 'Nexora motion design preview'),
-  image('evr-ventures', 'evr-ventures.gif', 'EVR Ventures motion design preview'),
-  image('planet-orbit', 'planet-orbit.gif', 'Planet Orbit motion design preview'),
-  image('new-era', 'new-era.gif', 'New Era motion design preview'),
-  image('wealth', 'wealth.gif', 'Wealth motion design preview'),
-  image('luminex', 'luminex.gif', 'Luminex motion design preview'),
-  image('celestia', 'celestia.gif', 'Celestia motion design preview'),
+  image('komandor-catalog', 'projects/komandor-auto-02.png', 'Каталог проекта Командор Авто'),
+  image('devops', 'marquee/devops.svg', 'DevOps и доставка приложений'),
+  image('marki-catalog', 'projects/marki-sng-02.png', 'Каталог проекта Марки СНГ'),
+  image('automation', 'marquee/automation.svg', 'Автоматизация бизнес-процессов'),
+  image(
+    'sootechestvenniki-details',
+    'projects/sootechestvenniki-rf-03.png',
+    'Раздел проекта Соотечественники РФ',
+  ),
+  image('security', 'marquee/security.svg', 'Безопасность и надёжность'),
+  image('prometey-details', 'projects/crism-prometey-03.png', 'Раздел проекта Прометей'),
+  image('fullstack', 'marquee/fullstack.svg', 'Полный цикл разработки продукта'),
+  image('komandor-details', 'projects/komandor-auto-03.png', 'Раздел проекта Командор Авто'),
+  image('marki-details', 'projects/marki-sng-03.png', 'Раздел проекта Марки СНГ'),
 ] as const;

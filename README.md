@@ -26,11 +26,11 @@ npm run dev
 - `src/components/projects/` — sticky project card
 - `src/components/ui/` — shared pill controls
 - `src/data/` — typed services, projects, marquee data, and source URL manifest
-- `public/assets/` — locally served images, GIF animations, and Kanit fonts
+- `public/assets/` — локальные изображения проектов, авторские SVG-карточки и шрифты
 
 ## Asset traceability
 
-`src/data/assetSources.ts` хранит исходные URL визуальных материалов и локальные пути. Двенадцать изображений проектов — локальные скриншоты сайтов `sootechestvenniki-rf.ru`, `crism-prometey.ru`, `командор-авто.рф` и `marki-sng.ru`. Рантайм не загружает изображения со сторонних доменов.
+`src/data/assetSources.ts` хранит исходные URL визуальных материалов и локальные пути. Двенадцать изображений проектов — локальные скриншоты сайтов `sootechestvenniki-rf.ru`, `crism-prometey.ru`, `командор-авто.рф` и `marki-sng.ru`. Marquee использует эти реальные кадры и девять локальных SVG-композиций о разработке. Старые MotionSites-источники помечены в manifest как `retired`, а их тяжёлые GIF-файлы удалены. Рантайм не загружает изображения со сторонних доменов.
 
 Kanit сохранён для исходной латинской стилистики. Поскольку Kanit не содержит кириллицу, интерфейс использует локально размещённый Exo 2 с кириллическим и латинским variable-начертанием 300–900; лицензии обоих шрифтов находятся в `public/assets/fonts/`.
 

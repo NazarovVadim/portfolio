@@ -13,11 +13,16 @@ describe('portfolio content integrity', () => {
     expect(reviews).toHaveLength(3);
     expect(marqueeRowOne).toHaveLength(11);
     expect(marqueeRowTwo).toHaveLength(10);
+    const marqueeImages = [...marqueeRowOne, ...marqueeRowTwo];
+    expect(new Set(marqueeImages.map((image) => image.src))).toHaveLength(21);
+    expect(marqueeImages.every((image) => !image.src.includes('/animations/marquee/'))).toBe(true);
   });
 
   it('records all original and captured visual sources with unique local files', () => {
     expect(assetSources).toHaveLength(47);
     expect(new Set(assetSources.map((asset) => asset.localPath))).toHaveLength(47);
+    expect(assetSources.filter((asset) => asset.status === 'retired')).toHaveLength(21);
+    expect(assetSources.filter((asset) => asset.status !== 'retired')).toHaveLength(26);
     expect(assetSources.every((asset) => asset.sourceUrl.startsWith('https://'))).toBe(true);
   });
 });
