@@ -1,9 +1,6 @@
 import { assetPath } from '../lib/assets';
 
 export interface Project {
-  number: string;import { assetPath } from '../lib/assets';
-
-export interface Project {
   number: string;
   name: string;
   category: string;
