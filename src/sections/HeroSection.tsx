@@ -6,7 +6,9 @@ import { assetPath } from '../lib/assets';
 
 const navigation = [
   { label: 'Обо мне', href: '#about' },
-  { label: 'Проекты', href: '#projects' },
+  { label: 'Навыки', href: '#services' },
+  { label: 'Проекты', href: '#projects' }
+  { label: 'Отзывы', href: '#reviews' },,
   { label: 'Контакты', href: '#contact' },
 ] as const;
 
