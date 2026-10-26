@@ -29,7 +29,7 @@ const cardGlows = [
 
 export function ServicesSection() {
   return (
-    <section className="relative overflow-hidden rounded-t-[40px] bg-white px-5 py-20 text-[#0C0C0C] sm:rounded-t-[50px] sm:px-8 sm:py-24 md:rounded-t-[60px] md:px-10 md:py-32">
+    <section id="services" className="scroll-mt-8 relative overflow-hidden rounded-t-[40px] bg-white px-5 py-20 text-[#0C0C0C] sm:rounded-t-[50px] sm:px-8 sm:py-24 md:rounded-t-[60px] md:px-10 md:py-32"></section>
       <div className="pointer-events-none absolute -left-40 top-1/4 size-[520px] rounded-full bg-fuchsia-300/25 blur-[120px]" />
       <div className="relative mx-auto max-w-[1500px]">
         <div className="mb-16 grid items-end gap-8 sm:mb-20 md:mb-24 md:grid-cols-[1fr_0.42fr]">
