@@ -16,7 +16,7 @@ const reviewGlows = [
 
 export function ReviewsSection() {
   return (
-    <section className="relative z-10 -mt-10 overflow-hidden rounded-t-[40px] bg-[#0C0C0C] px-5 pb-40 pt-24 text-[#D7E2EA] sm:-mt-12 sm:rounded-t-[50px] sm:px-8 sm:pb-48 sm:pt-28 md:-mt-14 md:rounded-t-[60px] md:px-10 md:pb-56 md:pt-36">
+    <section id="reviews" className="scroll-mt-8 relative z-10 -mt-10 overflow-hidden rounded-t-[40px] bg-[#0C0C0C] px-5 pb-40 pt-24 text-[#D7E2EA] sm:-mt-12 sm:rounded-t-[50px] sm:px-8 sm:pb-48 sm:pt-28 md:-mt-14 md:rounded-t-[60px] md:px-10 md:pb-56 md:pt-36"></section>
       <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-fuchsia-400 to-transparent" />
       <div className="pointer-events-none absolute -right-52 top-20 size-[600px] rounded-full bg-fuchsia-700/20 blur-[150px]" />
 
