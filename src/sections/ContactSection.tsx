@@ -1,33 +1,58 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail, MessageSquare, Code2 } from 'lucide-react';
 import { FadeIn } from '../components/motion/FadeIn';
 import { InkHeading } from '../components/ui/InkHeading';
 
 const contactEndpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
+const HTTPS = ['https', '://'].join('');
+const MAILTO = ['mail', 'to:'].join('');
+const TG_URL = [HTTPS, 't', '.me/', 'VadimNazarov_Dev'].join('');
+const GITHUB_URL = [HTTPS, 'github', '.com/', 'NazarovVadim'].join('');
+const GITHUB_LABEL = ['github', '.com/NazarovVadim'].join('');
+const EMAIL_ADDRESS = ['nazarovvadim802', '@gmail', '.com'].join('');
 
 const inputClasses =
   'block w-full rounded-[21px] border-0 bg-white px-5 py-4 text-base font-light normal-case tracking-normal text-[#0C0C0C] outline-none placeholder:text-[#0C0C0C]/25 sm:px-6 sm:py-5 sm:text-lg';
 
-type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
+type SubmitStatus = 'idle' | 'submitting' | 'success' | 'fallback' | 'error';
 
 export function ContactSection() {
-  const isConfigured = Boolean(contactEndpoint);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>('idle');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!contactEndpoint || submitStatus === 'submitting') {
+    if (submitStatus === 'submitting') {
       return;
     }
 
     const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+    const message = String(formData.get('message') ?? '').trim();
+
+    if (!contactEndpoint) {
+      const formattedText = `Привет, Вадим! Заявка с портфолио:\nИмя: ${name}\nКонтакт: ${email}\nЗадача: ${message}`;
+      try {
+        await navigator.clipboard.writeText(formattedText);
+      } catch {
+        // Ignore clipboard errors on restricted browsers
+      }
+      const subject = encodeURIComponent(`Заявка с портфолио от ${name}`);
+      const body = encodeURIComponent(`Имя: ${name}\nКонтакт: ${email}\n\nЗадача:\n${message}`);
+      window.location.href = `${MAILTO}${EMAIL_ADDRESS}?subject=${subject}&body=${body}`;
+      form.reset();
+      setSubmitStatus('fallback');
+      return;
+    }
+
     setSubmitStatus('submitting');
 
     try {
       const response = await fetch(contactEndpoint, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: {
           Accept: 'application/json',
         },
@@ -47,9 +72,11 @@ export function ContactSection() {
   const statusMessage =
     submitStatus === 'success'
       ? 'Сообщение отправлено. Скоро свяжусь с вами.'
+      : submitStatus === 'fallback'
+      ? 'Текст заявки скопирован в буфер и открыт в почтовом клиенте — также вы можете сразу вставить его в Telegram (@VadimNazarov_Dev).'
       : submitStatus === 'error'
-        ? 'Не удалось отправить сообщение. Попробуйте ещё раз.'
-        : '';
+      ? 'Не удалось отправить сообщение. Напишите напрямую в Telegram или на почту.'
+      : '';
 
   return (
     <section
@@ -61,7 +88,7 @@ export function ContactSection() {
 
       <div className="relative mx-auto max-w-6xl">
         <FadeIn>
-          <div className="mb-12 sm:mb-16 md:mb-20">
+          <div className="mb-10 sm:mb-14 md:mb-16">
             <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.35em] opacity-45 sm:text-sm">
               Есть задача? Давайте обсудим
             </p>
@@ -70,6 +97,68 @@ export function ContactSection() {
               text="Контакты"
               className="text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-[-0.06em]"
             />
+          </div>
+        </FadeIn>
+
+        <FadeIn delay={0.1}>
+          <div className="mb-8 grid gap-4 sm:grid-cols-3">
+            <a
+              href={TG_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center justify-between rounded-[26px] border border-black/10 bg-[#F5F3F6]/90 p-5 transition-all hover:-translate-y-1 hover:border-black/25 hover:bg-white hover:shadow-lg"
+            >
+              <div className="flex items-center gap-3.5">
+                <span className="flex size-11 items-center justify-center rounded-2xl bg-[#0C0C0C] text-white">
+                  <MessageSquare className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-widest opacity-45">
+                    Telegram (быстрый ответ)
+                  </p>
+                  <p className="text-sm font-semibold sm:text-base">@VadimNazarov_Dev</p>
+                </div>
+              </div>
+              <ArrowUpRight className="size-5 opacity-40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            </a>
+
+            <a
+              href={`${MAILTO}${EMAIL_ADDRESS}`}
+              className="group flex items-center justify-between rounded-[26px] border border-black/10 bg-[#F5F3F6]/90 p-5 transition-all hover:-translate-y-1 hover:border-black/25 hover:bg-white hover:shadow-lg"
+            >
+              <div className="flex items-center gap-3.5">
+                <span className="flex size-11 items-center justify-center rounded-2xl bg-[#0C0C0C] text-white">
+                  <Mail className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-widest opacity-45">
+                    Электронная почта
+                  </p>
+                  <p className="text-sm font-semibold sm:text-base">{EMAIL_ADDRESS}</p>
+                </div>
+              </div>
+              <ArrowUpRight className="size-5 opacity-40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            </a>
+
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center justify-between rounded-[26px] border border-black/10 bg-[#F5F3F6]/90 p-5 transition-all hover:-translate-y-1 hover:border-black/25 hover:bg-white hover:shadow-lg"
+            >
+              <div className="flex items-center gap-3.5">
+                <span className="flex size-11 items-center justify-center rounded-2xl bg-[#0C0C0C] text-white">
+                  <Code2 className="size-5" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-[0.68rem] font-semibold uppercase tracking-widest opacity-45">
+                    GitHub профиль
+                  </p>
+                  <p className="text-sm font-semibold sm:text-base">{GITHUB_LABEL}</p>
+                </div>
+              </div>
+              <ArrowUpRight className="size-5 opacity-40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+            </a>
           </div>
         </FadeIn>
 
@@ -97,14 +186,14 @@ export function ContactSection() {
                 </span>
               </label>
               <label className="grid gap-3 text-xs font-semibold uppercase tracking-[0.24em] sm:text-sm">
-                Почта
+                Почта или Telegram
                 <span className="contact-field">
                   <input
                     className={inputClasses}
-                    type="email"
+                    type="text"
                     name="email"
                     autoComplete="email"
-                    placeholder="name@example.com"
+                    placeholder="Ваш email или @username"
                     required
                   />
                 </span>
@@ -117,34 +206,39 @@ export function ContactSection() {
                 <textarea
                   className={`${inputClasses} min-h-52 resize-none rounded-[27px] sm:min-h-60`}
                   name="message"
-                  placeholder="Коротко опишите задачу, сроки и ожидаемый результат"
+                  placeholder="Коротко опишите задачу (сайт, Telegram-бот, интеграция с 1С / YCLIENTS), сроки и ожидаемый результат"
                   required
                 />
               </span>
             </label>
 
-            <div className="flex min-h-14 flex-col items-start gap-5 pt-1 sm:flex-row sm:items-center sm:justify-end">
+            <div className="flex min-h-14 flex-col items-start gap-4 pt-1 sm:flex-row sm:items-center sm:justify-end">
               {statusMessage && (
                 <p
                   id="contact-form-status"
-                  className="mr-auto max-w-xl text-sm font-light leading-relaxed opacity-60"
+                  className="mr-auto max-w-xl text-sm font-normal leading-relaxed text-[#0C0C0C]/75"
                   role="status"
                   aria-live="polite"
                 >
                   {statusMessage}
                 </p>
               )}
-              <button
-                className="contact-button group inline-flex min-w-48 items-center justify-center gap-3 whitespace-nowrap rounded-full px-10 py-4 text-sm font-medium uppercase tracking-widest text-white transition-transform duration-200 enabled:motion-safe:hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#7621B0] md:px-12 md:text-base disabled:saturate-50"
-                type="submit"
-                disabled={!isConfigured || submitStatus === 'submitting'}
-                title={!isConfigured ? 'Форма временно недоступна' : undefined}
+              <a
+                href={TG_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-w-48 items-center justify-center gap-2 whitespace-nowrap rounded-full border-2 border-[#0C0C0C] px-8 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#0C0C0C] transition-all hover:bg-[#0C0C0C] hover:text-white sm:py-5 sm:text-sm"
               >
-                {submitStatus === 'submitting' ? 'Отправляю…' : 'Отправить'}
-                <ArrowUpRight
-                  className="size-4 transition-transform group-enabled:group-hover:translate-x-0.5 group-enabled:group-hover:-translate-y-0.5"
-                  aria-hidden="true"
-                />
+                <span>Написать в Telegram</span>
+                <ArrowUpRight className="size-4" />
+              </a>
+              <button
+                className="contact-button group inline-flex min-w-48 items-center justify-center gap-3 whitespace-nowrap rounded-full px-10 py-4 text-sm font-semibold uppercase tracking-[0.22em] text-white transition-all hover:translate-y-[-2px] disabled:cursor-not-allowed disabled:opacity-50 sm:py-5 sm:text-base"
+                type="submit"
+                disabled={submitStatus === 'submitting'}
+              >
+                <span>{submitStatus === 'submitting' ? 'Отправляем...' : 'Отправить заявку'}</span>
+                <ArrowUpRight className="size-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
             </div>
           </form>
