@@ -8,7 +8,7 @@ const navigation = [
   { label: 'Обо мне', href: '#about' },
   { label: 'Навыки', href: '#services' },
   { label: 'Проекты', href: '#projects' }
-  { label: 'Отзывы', href: '#reviews' },,
+  { label: 'Отзывы', href: '#reviews' },, 
   { label: 'Контакты', href: '#contact' },
 ] as const;
 
