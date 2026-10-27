@@ -16,11 +16,11 @@ export function HeroSection() {
   return (
     <header className="hero-viewport relative flex h-screen flex-col overflow-x-clip bg-[#0C0C0C]">
       <FadeIn as="nav" delay={0} y={-20} className="relative z-30 px-6 pt-6 md:px-10 md:pt-8">
-        <ul className="flex items-center justify-between">
+        <ul className="flex items-center justify-between" gap-1 overflow-x-auto rounded-full border border-white/10 bg-white/[0.04] p-1.5 backdrop-blur-md sm:border-0 sm:bg-transparent sm:p-0 sm:gap-4 md:gap-8>
           {navigation.map((item) => (
             <li key={item.label}>
               <a
-                className="text-sm font-medium uppercase tracking-wider text-[#D7E2EA] transition-opacity duration-300 hover:opacity-70"
+                className="rounded-full px-2.5 py-1 text-[0.72rem] font-medium uppercase tracking-tight text-[#D7E2EA] transition-all hover:bg-white/10 sm:px-0 sm:py-0 sm:text-xs sm:tracking-wider sm:hover:bg-transparent sm:hover:opacity-70 md:text-sm"className="text-sm font-medium uppercase tracking-wider text-[#D7E2EA] transition-opacity duration-300 hover:opacity-70"
                 href={item.href}
               >
                 {item.label}
