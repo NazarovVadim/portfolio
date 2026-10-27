@@ -10,17 +10,17 @@ interface MarqueeRowProps {
 
 function MarqueeRow({ images, rowRef }: MarqueeRowProps) {
   return (
-    <div className="marquee-scrollo verflow-hidden px-5 sm:px-8 md:overflow-visible md:px-0">
+    <div className="marquee-scroll overflow-hidden px-5 sm:px-8 md:overflow-visible md:px-0">
       <div
         ref={rowRef}
-        className="flex w-max snap-x snap-mandatory gap-3 md:snap-none"
+        className="flex w-max gap-3"
         style={{ willChange: 'transform' }}
       >
         {[0, 1, 2].flatMap((repeat) =>
           images.map((image) => (
             <div
               key={`${repeat}-${image.id}`}
-              className={`${repeat > 0 ? 'hidden md:block' : ''} group relative aspect-[14/9] w-[calc(100vw-2.5rem)] max-w-[420px] shrink-0 snap-center overflow-hidden rounded-[28px] border border-white/10 bg-[#131313] shadow-[0_20px_60px_rgba(0,0,0,0.38)] sm:w-[calc(100vw-4rem)] md:h-[270px] md:w-[420px] md:max-w-none md:aspect-auto`}
+              className="group relative aspect-[14/9] w-[calc(100vw-3.5rem)] max-w-[420px] shrink-0 overflow-hidden rounded-2xl bg-border-muted"
               aria-hidden={repeat > 0}
             >
               <img
@@ -32,7 +32,7 @@ function MarqueeRow({ images, rowRef }: MarqueeRowProps) {
                 loading="lazy"
                 decoding="async"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/[0.04]" />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-white/5" />
             </div>
           )),
         )}
@@ -53,14 +53,25 @@ export function MarqueeSection() {
     if (!section || !rowOne || !rowTwo) return;
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const isMobile = window.matchMedia('(max-width: 767px)');
     let sectionTop = section.getBoundingClientRect().top + window.scrollY;
     let frame: number | null = null;
 
-    const render =(time = performance.now())) > {
+    const render = (time = performance.now()) => {
       frame = null;
-      if (reducedMotion.matches || window.innerWidth < 768) {
+      if (reducedMotion.matches) {
         rowOne.style.transform = 'translate3d(0, 0, 0)';
         rowTwo.style.transform = 'translate3d(0, 0, 0)';
+        return;
+      }
+
+      if (isMobile.matches) {
+        const t = time * 0.00035;
+        const offset1 = Math.sin(t) * 160;
+        const offset2 = Math.sin(t + Math.PI / 2) * -160;
+        rowOne.style.transform = `translate3d(${offset1}px, 0, 0)`;
+        rowTwo.style.transform = `translate3d(${offset2}px, 0, 0)`;
+        frame = requestAnimationFrame(render);
         return;
       }
 
@@ -82,6 +93,7 @@ export function MarqueeSection() {
     window.addEventListener('scroll', scheduleRender, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
     reducedMotion.addEventListener('change', scheduleRender);
+
     frame = requestAnimationFrame(render);
 
     return () => {
@@ -111,7 +123,7 @@ export function MarqueeSection() {
           />
         </FadeIn>
       </div>
-            <div className="relative flex flex-col gap-3">
+      <div className="relative flex flex-col gap-3">
         <MarqueeRow images={marqueeRowOne} rowRef={rowOneRef} />
         <MarqueeRow images={marqueeRowTwo} rowRef={rowTwoRef} />
       </div>
