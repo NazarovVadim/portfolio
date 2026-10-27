@@ -1,4 +1,4 @@
-# Вадим -- Фуллстак-разработчик
+# Фуллстак-разработчик
 
 Адаптивное портфолио фуллстак-разработчика на React, TypeScript, Vite, Tailwind CSS, Framer Motion и Lucide React.
 
