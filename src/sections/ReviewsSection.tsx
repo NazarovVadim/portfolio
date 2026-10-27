@@ -8,30 +8,34 @@ const reviewLayouts = [
   'md:col-span-5 md:min-h-[310px]',
   'md:col-span-5 md:min-h-[310px]',
 ] as const;
+
 const reviewGlows = [
-  'radial-gradient(circle at 82% 18%, rgba(182,0,168,0.72), transparent 38%), radial-gradient(circle at 8% 92%, rgba(190,76,0,0.5), transparent 34%)',
+  'radial-gradient(circle at 82% 18%, rgba(182,0,168,0.72), transparent 38%), radial-gradient(circle at 8% 92%, rgba(20,29,141,0.75), transparent 42%)',
   'radial-gradient(circle at 88% 4%, rgba(72,68,255,0.65), transparent 42%)',
   'radial-gradient(circle at 88% 8%, rgba(0,168,181,0.55), transparent 42%)',
 ] as const;
 
 export function ReviewsSection() {
   return (
-    <section id="reviews" className="scroll-mt-8 relative z-10 -mt-10 overflow-hidden rounded-t-[40px] bg-[#0C0C0C] px-5 pb-40 pt-24 text-[#D7E2EA] sm:-mt-12 sm:rounded-t-[50px] sm:px-8 sm:pb-48 sm:pt-28 md:-mt-14 md:rounded-t-[60px] md:px-10 md:pb-56 md:pt-36"></section>
-      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-fuchsia-400 to-transparent" />
-      <div className="pointer-events-none absolute -right-52 top-20 size-[600px] rounded-full bg-fuchsia-700/20 blur-[150px]" />
+    <section
+      id="reviews"
+      className="relative z-10 -mt-10 scroll-mt-8 overflow-hidden rounded-t-[40px] bg-[#0C0C0C] px-5 pb-40 pt-24 text-white sm:-mt-12 sm:rounded-t-[60px] md:px-10"
+    >
+      <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+      <div className="pointer-events-none absolute -right-52 top-20 size-[600px] rounded-full bg-fuchsia-700/20 blur-[160px]" />
 
       <div className="relative mx-auto max-w-[1500px]">
         <div className="mb-16 sm:mb-20 md:mb-24">
           <FadeIn>
             <div>
-              <div className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] text-fuchsia-300 sm:text-sm">
+              <div className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/50">
                 <Sparkles className="size-4" aria-hidden="true" />
                 Результат глазами клиента
               </div>
               <InkHeading
                 as="h2"
                 text="Отзывы"
-                className="hero-heading text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-[-0.07em]"
+                className="hero-heading text-[clamp(3.8rem,11vw,155px)] font-black uppercase leading-[0.78] tracking-tight text-[#EAF0F6]"
               />
             </div>
           </FadeIn>
@@ -44,12 +48,12 @@ export function ReviewsSection() {
               className={reviewLayouts[index] ?? 'md:col-span-5'}
               delay={index * 0.1}
             >
-              <article className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-[36px] border border-white/15 bg-[#121212] p-7 shadow-[0_32px_90px_rgba(0,0,0,0.4)] transition duration-500 hover:-translate-y-2 hover:border-white/30 sm:rounded-[46px] sm:p-9 md:p-11">
+              <article className="group relative flex h-full min-h-[360px] flex-col overflow-hidden rounded-[36px] bg-[#121215] p-8 sm:p-10 md:p-12">
                 <div
-                  className="pointer-events-none absolute inset-0 opacity-75 transition duration-700 group-hover:scale-110 group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-0 opacity-75 transition duration-700 group-hover:scale-105"
                   style={{ background: reviewGlows[index] }}
                 />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_1px,transparent_1.5px)] bg-[size:22px_22px] opacity-20 [mask-image:linear-gradient(to_bottom,black,transparent_65%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
 
                 <div className="relative">
                   <Quote
@@ -69,7 +73,7 @@ export function ReviewsSection() {
                   «{review.text}»
                 </p>
 
-                <footer className="relative mt-9 flex items-end justify-between gap-4 border-t border-white/15 pt-5">
+                <footer className="relative mt-9 flex items-end justify-between gap-4 border-t border-white/15 pt-6 text-sm">
                   <div>
                     <p className="font-semibold uppercase tracking-[0.12em]">{review.name}</p>
                     <p className="mt-1 text-sm font-light text-white/45">{review.role}</p>
