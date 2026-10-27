@@ -2,6 +2,8 @@
 
 Адаптивное портфолио фуллстак-разработчика на React, TypeScript, Vite, Tailwind CSS, Framer Motion и Lucide React.
 
+https://nazarovvadim.github.io/portfolio
+
 ## Setup
 
 ```sh
