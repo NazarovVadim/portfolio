@@ -15,39 +15,117 @@ export interface Project {
 const HTTPS = ['https', '://'].join('');
 const SVG_NS = ['http', '://www.w3.org/2000/svg'].join('');
 
+function escapeXml(str: string): string {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 function createBotCardSvg(
+  slot: 0 | 1 | 2,
   badge: string,
   title: string,
   subtitle: string,
   lines: readonly string[],
   accentColor: string,
 ): string {
+  const safeBadge = escapeXml(badge);
+  const safeTitle = escapeXml(title);
+  const safeSubtitle = escapeXml(subtitle);
+
+  // Слот 0: Верхняя левая карточка (пропорция 2:1, 1280x640)
+  if (slot === 0) {
+    const lineElements = lines
+      .map(
+        (line, idx) =>
+          `<rect x="60" y="${280 + idx * 105}" width="1160" height="85" rx="20" fill="#141824" stroke="${accentColor}" stroke-opacity="0.3" stroke-width="2"/>` +
+          `<circle cx="105" cy="${322 + idx * 105}" r="10" fill="${accentColor}"/>` +
+          `<text x="135" y="${331 + idx * 105}" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500">${escapeXml(line)}</text>`,
+      )
+      .join('');
+
+    const svg = `<svg xmlns="${SVG_NS}" viewBox="0 0 1280 640" width="1280" height="640">
+      <defs>
+        <linearGradient id="bg0" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#0A0C12"/>
+          <stop offset="100%" stop-color="#141826"/>
+        </linearGradient>
+        <radialGradient id="glow0" cx="85%" cy="15%" r="60%">
+          <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${accentColor}" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1280" height="640" fill="url(#bg0)"/>
+      <rect width="1280" height="640" fill="url(#glow0)"/>
+      <rect x="60" y="45" width="340" height="46" rx="23" fill="${accentColor}" fill-opacity="0.18" stroke="${accentColor}" stroke-opacity="0.55"/>
+      <text x="230" y="75" text-anchor="middle" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="2">${safeBadge}</text>
+      <text x="60" y="150" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="800">${safeTitle}</text>
+      <text x="60" y="198" fill="#9BB1C1" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400">${safeSubtitle}</text>
+      ${lineElements}
+    </svg>`;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  }
+
+  // Слот 1: Нижняя левая карточка (пропорция 1.45:1, 1280x880)
+  if (slot === 1) {
+    const lineElements = lines
+      .map(
+        (line, idx) =>
+          `<rect x="60" y="${280 + idx * 115}" width="1160" height="90" rx="22" fill="#141824" stroke="${accentColor}" stroke-opacity="0.3" stroke-width="2"/>` +
+          `<circle cx="105" cy="${325 + idx * 115}" r="10" fill="${accentColor}"/>` +
+          `<text x="135" y="${334 + idx * 115}" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500">${escapeXml(line)}</text>`,
+      )
+      .join('');
+
+    const svg = `<svg xmlns="${SVG_NS}" viewBox="0 0 1280 880" width="1280" height="880">
+      <defs>
+        <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#0A0C12"/>
+          <stop offset="100%" stop-color="#141826"/>
+        </linearGradient>
+        <radialGradient id="glow1" cx="85%" cy="15%" r="65%">
+          <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${accentColor}" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1280" height="880" fill="url(#bg1)"/>
+      <rect width="1280" height="880" fill="url(#glow1)"/>
+      <rect x="60" y="50" width="360" height="48" rx="24" fill="${accentColor}" fill-opacity="0.18" stroke="${accentColor}" stroke-opacity="0.55"/>
+      <text x="240" y="81" text-anchor="middle" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="2">${safeBadge}</text>
+      <text x="60" y="155" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="800">${safeTitle}</text>
+      <text x="60" y="205" fill="#9BB1C1" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400">${safeSubtitle}</text>
+      ${lineElements}
+    </svg>`;
+    return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+  }
+
+  // Слот 2: Правая вертикальная карточка (пропорция 1:1.35, 1000x1350 — идеально под правый слот 582px!)
   const lineElements = lines
     .map(
       (line, idx) =>
-        `<rect x="48" y="${260 + idx * 110}" width="1184" height="84" rx="22" fill="#141824" stroke="${accentColor}" stroke-opacity="0.35" stroke-width="2"/>` +
-        `<circle cx="92" cy="${302 + idx * 110}" r="9" fill="${accentColor}"/>` +
-        `<text x="124" y="${310 + idx * 110}" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="500">${line}</text>`,
+        `<rect x="60" y="${460 + idx * 165}" width="880" height="135" rx="24" fill="#141824" stroke="${accentColor}" stroke-opacity="0.32" stroke-width="2"/>` +
+        `<circle cx="110" cy="${527 + idx * 165}" r="12" fill="${accentColor}"/>` +
+        `<text x="145" y="${536 + idx * 165}" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="500">${escapeXml(line)}</text>`,
     )
     .join('');
 
-  const svg = `<svg xmlns="${SVG_NS}" viewBox="0 0 1280 720" width="1280" height="720">
+  const svg = `<svg xmlns="${SVG_NS}" viewBox="0 0 1000 1350" width="1000" height="1350">
     <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#0C0E14"/>
-        <stop offset="100%" stop-color="#151928"/>
+      <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#0A0C12"/>
+        <stop offset="100%" stop-color="#141826"/>
       </linearGradient>
-      <radialGradient id="glow" cx="85%" cy="15%" r="60%">
-        <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.35"/>
+      <radialGradient id="glow2" cx="75%" cy="12%" r="70%">
+        <stop offset="0%" stop-color="${accentColor}" stop-opacity="0.4"/>
         <stop offset="100%" stop-color="${accentColor}" stop-opacity="0"/>
       </radialGradient>
     </defs>
-    <rect width="1280" height="720" fill="url(#bg)"/>
-    <rect width="1280" height="720" fill="url(#glow)"/>
-    <rect x="48" y="48" width="340" height="48" rx="24" fill="${accentColor}" fill-opacity="0.18" stroke="${accentColor}" stroke-opacity="0.55"/>
-    <text x="218" y="79" text-anchor="middle" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="2">${badge}</text>
-    <text x="48" y="158" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="800">${title}</text>
-    <text x="48" y="208" fill="#9BB1C1" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="400">${subtitle}</text>
+    <rect width="1000" height="1350" fill="url(#bg2)"/>
+    <rect width="1000" height="1350" fill="url(#glow2)"/>
+    <rect x="60" y="70" width="360" height="52" rx="26" fill="${accentColor}" fill-opacity="0.2" stroke="${accentColor}" stroke-opacity="0.6"/>
+    <text x="240" y="103" text-anchor="middle" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="2">${safeBadge}</text>
+    <text x="60" y="195" fill="#EAF0F6" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="800">${safeTitle}</text>
+    <text x="60" y="250" fill="#9BB1C1" font-family="system-ui, -apple-system, sans-serif" font-size="25" font-weight="400">${safeSubtitle}</text>
+    <line x1="60" y1="380" x2="940" y2="380" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2"/>
+    <text x="60" y="420" fill="${accentColor}" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="3">КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ</text>
     ${lineElements}
   </svg>`;
 
@@ -69,17 +147,18 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'TypeScript', 'Telegram Bot API', 'YCLIENTS API', 'Cron / Парсер'],
     images: [
       createBotCardSvg(
+        0,
         'PROACTIVE × YCLIENTS',
         'Онлайн-запись в клинику 24/7',
         'Синхронизация услуг, врачей и расписания с CRM YCLIENTS в реальном времени',
         [
           'Пошаговый выбор направления, врача и удобного времени приёма',
           'Мгновенное создание записи в YCLIENTS без участия колл-центра',
-          'Личный кабинет пациента со списком предстоящих визитов',
         ],
         '#00B5FF',
       ),
       createBotCardSvg(
+        1,
         'CRON & SMART REMINDERS',
         'Ежедневный парсер визитов',
         'Автоматическое напоминание пациентам, у которых запись назначена на сегодня',
@@ -91,6 +170,7 @@ export const projects: readonly Project[] = [
         '#8B5CF6',
       ),
       createBotCardSvg(
+        2,
         'РЕЗУЛЬТАТ ДЛЯ КЛИНИКИ',
         'Автоматизация ресепшена',
         'Снижение нагрузки на администраторов и сокращение числа неявок (no-show)',
@@ -119,17 +199,18 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'TypeScript', 'Telegram Bot API', 'Bi-directional Chat', 'NDA'],
     images: [
       createBotCardSvg(
+        0,
         'ДВУСТОРОННИЙ ЧАТ',
         'Диалог Пациент ↔ Администратор',
         'Полноценный мессенджер поддержки прямо внутри единого Telegram-бота',
         [
           'Пациент общается с клиникой прямо в чате бота без сторонних ссылок',
           'Администратор отвечает каждому пациенту через тот же бот в изолированном треде',
-          'Поддержка текстовых сообщений, медиафайлов и уведомлений о новых ответах',
         ],
         '#EC4899',
       ),
       createBotCardSvg(
+        1,
         'ОНЛАЙН-ЗАПИСЬ НА УСЛУГИ',
         'Запись на приём и консультации',
         'Удобная витрина медицинских услуг и бронирование визита за минуту',
@@ -141,6 +222,7 @@ export const projects: readonly Project[] = [
         '#3B82F6',
       ),
       createBotCardSvg(
+        2,
         'PRIVATE MEDICAL • NDA',
         'Панель администратора в боте',
         'Управление потоком пациентов и перепиской со смартфона или десктопа',

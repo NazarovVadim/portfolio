@@ -33,25 +33,25 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
   return (
     <div ref={cardRef} className="project-card-sticky mb-8 md:mb-[18vh]" style={stickyStyle}>
       <motion.article
-        className="origin-top rounded-[40px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 text-[#D7E2EA] sm:rounded-[50px] sm:p-6 md:p-8"
+        className="origin-top rounded-[32px] border-2 border-[#D7E2EA] bg-[#0C0C0C] p-5 text-[#D7E2EA] sm:rounded-[50px] sm:p-6 md:p-8"
         style={{ scale: reduceMotion ? 1 : scale }}
       >
-        <div className="mb-5 grid grid-cols-[auto_1fr] items-end gap-x-4 gap-y-4 sm:mb-6 sm:grid-cols-[auto_1fr_auto]">
-          <span className="row-span-2 text-[clamp(3rem,10vw,140px)] font-black leading-[0.78] text-[#D7E2EA] md:row-span-1">
+        <div className="mb-4 grid grid-cols-[auto_1fr] items-end gap-x-4 gap-y-3 sm:mb-6 sm:grid-cols-[auto_1fr_auto]">
+          <span className="row-span-2 text-[clamp(2.5rem,8vw,140px)] font-black leading-[0.78] text-[#D7E2EA] md:row-span-1">
             {project.number}
           </span>
-          <p className="text-xs font-light uppercase tracking-widest text-[#D7E2EA]/70 sm:text-sm">
+          <p className="text-[0.65rem] font-light uppercase tracking-widest text-[#D7E2EA]/70 sm:text-xs md:text-sm">
             {project.category}
           </p>
           <InkHeading
             as="h3"
             text={project.name}
-            className="col-start-2 text-[clamp(1.2rem,3vw,2.8rem)] font-medium uppercase leading-none text-[#D7E2EA]"
+            className="col-start-2 text-[clamp(1.1rem,2.8vw,2.8rem)] font-medium uppercase leading-none text-[#D7E2EA]"
           />
-          <div className="col-span-2 justify-self-end sm:col-span-1 sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:self-center">
+          <div className="col-span-2 justify-self-start sm:col-span-1 sm:col-start-3 sm:row-span-2 sm:row-start-1 sm:self-center sm:justify-self-end">
             {isInternalLink ? (
               <a
-                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 border-[#D7E2EA] px-7 py-3 text-xs font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 hover:bg-[#D7E2EA]/10 sm:px-9 sm:py-3.5 sm:text-sm"
+                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full border-2 border-[#D7E2EA] px-5 py-2.5 text-xs font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 hover:bg-[#D7E2EA]/10 sm:px-9 sm:py-3.5 sm:text-sm"
                 href={project.liveUrl}
               >
                 {project.ctaLabel ?? 'Обсудить проект'}
@@ -67,11 +67,11 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           </div>
         </div>
 
-        <div className="mb-6 rounded-[28px] border border-white/10 bg-white/[0.03] p-4 sm:p-6">
-          <p className="max-w-4xl text-sm font-light leading-relaxed text-[#D7E2EA]/90 sm:text-base">
+        <div className="rounded-[24px] border border-white/10 bg-white/[0.03] p-4 sm:rounded-[28px] sm:p-6">
+          <p className="max-w-4xl text-xs font-light leading-relaxed text-[#D7E2EA]/90 sm:text-sm md:text-base">
             {project.description}
           </p>
-          <ul className="mt-4 grid gap-2.5 md:grid-cols-3">
+          <ul className="mt-4 grid gap-2.5 sm:grid-cols-2 md:grid-cols-3">
             {project.highlights.map((item) => (
               <li
                 key={item}
@@ -86,7 +86,7 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-[0.68rem] font-medium uppercase tracking-wider text-white/80 sm:text-xs"
+                className="rounded-full border border-white/15 bg-white/[0.06] px-3 py-1 text-[0.65rem] font-medium uppercase tracking-wider text-white/80 sm:text-xs"
               >
                 {tag}
               </span>
@@ -94,38 +94,38 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           </div>
         </div>
 
-      <div className="grid gap-3 sm:grid-cols-[40fr_60fr]">
+        {/* Сетка изображений: скрыта на мобильных (< md) и отображается на ПК (md:) */}
+        <div className="mt-6 hidden md:grid md:grid-cols-[40fr_60fr] md:gap-3">
           <div className="grid gap-3">
-            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
+            <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
               <img
                 src={project.images[0]}
                 alt={`${project.name} — экран 1`}
-                className="h-[clamp(140px,18vw,230px)] w-full object-contain sm:object-cover sm:object-center"
+                className="h-[clamp(140px,18vw,230px)] w-full object-cover object-center"
                 loading="lazy"
                 decoding="async"
               />
             </div>
-            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
+            <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
               <img
                 src={project.images[1]}
                 alt={`${project.name} — экран 2`}
-                className="h-[clamp(170px,24vw,340px)] w-full object-contain sm:object-cover sm:object-center"
+                className="h-[clamp(170px,24vw,340px)] w-full object-cover object-center"
                 loading="lazy"
                 decoding="async"
               />
             </div>
           </div>
-          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
+          <div className="overflow-hidden rounded-[28px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
             <img
               src={project.images[2]}
               alt={`${project.name} — экран 3`}
-              className="h-[clamp(300px,calc(38vw+0.75rem),582px)] w-full object-contain sm:object-cover sm:object-top"
+              className="h-[clamp(300px,calc(38vw+0.75rem),582px)] w-full object-cover object-top"
               loading="lazy"
               decoding="async"
             />
           </div>
         </div>
-
       </motion.article>
     </div>
   );

@@ -16,11 +16,11 @@ function MarqueeRow({ images, rowRef }: MarqueeRowProps) {
         className="flex w-max gap-3"
         style={{ willChange: 'transform' }}
       >
-        {[0, 1, 2].flatMap((repeat) =>
+        {[0, 1, 2, 3].flatMap((repeat) =>
           images.map((image) => (
             <div
               key={`${repeat}-${image.id}`}
-              className="group relative aspect-[14/9] w-[calc(100vw-3.5rem)] max-w-[420px] shrink-0 overflow-hidden rounded-2xl bg-border-muted"
+              className="group relative aspect-[14/9] w-[280px] shrink-0 overflow-hidden rounded-2xl bg-border-muted sm:w-[360px] md:w-[420px]"
               aria-hidden={repeat > 0}
             >
               <img
@@ -56,6 +56,9 @@ export function MarqueeSection() {
     const isMobile = window.matchMedia('(max-width: 767px)');
     let sectionTop = section.getBoundingClientRect().top + window.scrollY;
     let frame: number | null = null;
+    let lastTime = performance.now();
+    let mobileOffsetOne = 0;
+    let mobileOffsetTwo = 0;
 
     const render = (time = performance.now()) => {
       frame = null;
@@ -65,16 +68,28 @@ export function MarqueeSection() {
         return;
       }
 
+      // На мобилке: непрерывный бесконечный плавный бег через все карточки
       if (isMobile.matches) {
-        const t = time * 0.00035;
-        const offset1 = Math.sin(t) * 160;
-        const offset2 = Math.sin(t + Math.PI / 2) * -160;
-        rowOne.style.transform = `translate3d(${offset1}px, 0, 0)`;
-        rowTwo.style.transform = `translate3d(${offset2}px, 0, 0)`;
+        const delta = Math.min(time - lastTime, 50);
+        lastTime = time;
+
+        // Плавная скорость перемещения (пикселей в миллисекунду)
+        mobileOffsetOne -= delta * 0.045; // верхний ряд бежит влево
+        mobileOffsetTwo += delta * 0.045; // нижний ряд бежит вправо
+
+        // Зацикливаем бесконечно (ширина одного набора карточек ~3200px)
+        const loopWidth = 3200;
+        if (Math.abs(mobileOffsetOne) >= loopWidth) mobileOffsetOne = 0;
+        if (Math.abs(mobileOffsetTwo) >= loopWidth) mobileOffsetTwo = 0;
+
+        rowOne.style.transform = `translate3d(${mobileOffsetOne}px, 0, 0)`;
+        rowTwo.style.transform = `translate3d(${mobileOffsetTwo - loopWidth}px, 0, 0)`;
         frame = requestAnimationFrame(render);
         return;
       }
 
+      // На десктопе: привязка к скроллу
+      lastTime = time;
       const offset = (window.scrollY - sectionTop + window.innerHeight) * 0.3;
       const translation = offset - 200;
       rowOne.style.transform = `translate3d(${translation}px, 0, 0)`;
@@ -119,7 +134,7 @@ export function MarqueeSection() {
           <InkHeading
             as="h2"
             text={'Код. Дизайн.\nРезультат.'}
-            className="max-w-6xl text-[clamp(3rem,8vw,118px)] font-black uppercase leading-[0.86] tracking-[-0.06em] text-[#D7E2EA]"
+            className="max-w-6xl text-[clamp(2.8rem,7vw,118px)] font-black uppercase leading-[0.86] tracking-[-0.06em] text-[#D7E2EA]"
           />
         </FadeIn>
       </div>

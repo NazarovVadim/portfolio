@@ -48,33 +48,43 @@ export function ReviewsSection() {
               className={reviewLayouts[index] ?? 'md:col-span-5'}
               delay={index * 0.1}
             >
-              <article className={`group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-[#121215] p-6 sm:rounded-[36px] sm:p-8 md:p-10 ${index === 0 ? 'min-h-[260px] sm:min-h-[300px] md:min-h-[640px] md:p-12' : 'min-h-[260px] sm:min-h-[300px] md:min-h-[310px]'}`}>
+              <article
+                className={`group relative flex h-full flex-col overflow-hidden rounded-[32px] bg-[#121215] p-6 sm:rounded-[36px] sm:p-8 md:p-10 ${
+                  index === 0
+                    ? 'min-h-[260px] sm:min-h-[300px] md:min-h-[640px] md:p-12'
+                    : 'min-h-[260px] sm:min-h-[300px] md:min-h-[310px]'
+                }`}
+              >
                 <div
                   className="pointer-events-none absolute inset-0 opacity-75 transition duration-700 group-hover:scale-105"
                   style={{ background: reviewGlows[index] }}
                 />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:18px_18px] opacity-30" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:18px_18px] opacity-40" />
 
                 <div className="relative">
                   <Quote
-                   className={`size-8 text-white/90 sm:size-10 ${index === 0 ? 'md:size-16' : 'md:size-11'}`}
+                    className={`size-8 text-white/90 sm:size-10 ${index === 0 ? 'md:size-16' : 'md:size-11'}`}
                     strokeWidth={1.1}
                     aria-hidden="true"
                   />
                 </div>
 
                 <p
-                 className={`relative mt-auto pt-8 font-medium leading-[1.3] tracking-[-0.02em] text-base sm:text-lg ${index === 0 ? 'md:text-[clamp(1.65rem,3vw,3.4rem)] md:leading-[1.22]' : 'md:text-[clamp(1.15rem,1.8vw,1.65rem)]'}`}
+                  className={`relative mt-auto pt-8 font-medium leading-[1.3] tracking-[-0.02em] text-base sm:text-lg ${
+                    index === 0
+                      ? 'md:text-[clamp(1.65rem,3vw,3.4rem)] md:leading-[1.22]'
+                      : 'md:text-[clamp(1.15rem,1.8vw,1.65rem)]'
+                  }`}
                 >
                   «{review.text}»
                 </p>
 
-                <footer className="relative mt-9 flex items-end justify-between gap-4 border-t border-white/15 pt-6 text-sm">
+                <footer className="relative mt-8 flex items-end justify-between gap-4 border-t border-white/15 pt-5 text-sm">
                   <div>
-                    <p className="font-semibold uppercase tracking-[0.12em]">{review.name}</p>
-                    <p className="mt-1 text-sm font-light text-white/45">{review.role}</p>
+                    <p className="font-semibold uppercase tracking-[0.12em] text-xs sm:text-sm">{review.name}</p>
+                    <p className="mt-1 text-xs font-light text-white/45 sm:text-sm">{review.role}</p>
                   </div>
-                  <span className="text-xs font-medium uppercase tracking-[0.22em] text-white/35">
+                  <span className="text-[0.65rem] font-medium uppercase tracking-[0.22em] text-white/35 sm:text-xs">
                     0{index + 1}
                   </span>
                 </footer>

@@ -1,4 +1,5 @@
 import { BlobCursor } from '../components/ui/BlobCursor';
+import { ScrollToTop } from '../components/ui/ScrollToTop';
 import { AboutSection } from '../sections/AboutSection';
 import { ContactSection } from '../sections/ContactSection';
 import { HeroSection } from '../sections/HeroSection';
@@ -11,6 +12,7 @@ export function App() {
   return (
     <>
       <BlobCursor />
+      <ScrollToTop />
       <main className="overflow-x-clip bg-[#0C0C0C]">
         <HeroSection />
         <MarqueeSection />
