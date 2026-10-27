@@ -10,7 +10,7 @@ interface MarqueeRowProps {
 
 function MarqueeRow({ images, rowRef }: MarqueeRowProps) {
   return (
-    <div className="marquee-scroll overflow-x-auto px-5 sm:px-8 md:overflow-visible md:px-0">
+    <div className="marquee-scrollo verflow-hidden px-5 sm:px-8 md:overflow-visible md:px-0">
       <div
         ref={rowRef}
         className="flex w-max snap-x snap-mandatory gap-3 md:snap-none"
@@ -56,7 +56,7 @@ export function MarqueeSection() {
     let sectionTop = section.getBoundingClientRect().top + window.scrollY;
     let frame: number | null = null;
 
-    const render = () => {
+    const render =(time = performance.now())) > {
       frame = null;
       if (reducedMotion.matches || window.innerWidth < 768) {
         rowOne.style.transform = 'translate3d(0, 0, 0)';
@@ -82,7 +82,7 @@ export function MarqueeSection() {
     window.addEventListener('scroll', scheduleRender, { passive: true });
     window.addEventListener('resize', handleResize, { passive: true });
     reducedMotion.addEventListener('change', scheduleRender);
-    render();
+    frame = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener('scroll', scheduleRender);
@@ -111,10 +111,7 @@ export function MarqueeSection() {
           />
         </FadeIn>
       </div>
-      <p className="mb-4 px-5 text-xs font-medium uppercase tracking-[0.22em] text-white/45 sm:px-8 md:hidden">
-        Листайте карточки в сторону
-      </p>
-      <div className="relative flex flex-col gap-3">
+            <div className="relative flex flex-col gap-3">
         <MarqueeRow images={marqueeRowOne} rowRef={rowOneRef} />
         <MarqueeRow images={marqueeRowTwo} rowRef={rowTwoRef} />
       </div>
