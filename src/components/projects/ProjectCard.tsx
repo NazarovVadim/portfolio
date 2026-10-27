@@ -94,37 +94,38 @@ export function ProjectCard({ project, index, totalCards }: ProjectCardProps) {
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-[40fr_60fr]">
+      <div className="grid gap-3 sm:grid-cols-[40fr_60fr]">
           <div className="grid gap-3">
+            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
+              <img
+                src={project.images[0]}
+                alt={`${project.name} — экран 1`}
+                className="h-[clamp(140px,18vw,230px)] w-full object-contain sm:object-cover sm:object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
+              <img
+                src={project.images[1]}
+                alt={`${project.name} — экран 2`}
+                className="h-[clamp(170px,24vw,340px)] w-full object-contain sm:object-cover sm:object-center"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </div>
+          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#121520] sm:rounded-[36px]">
             <img
-              src={project.images[0]}
-              alt={`${project.name} — первый экран проекта`}
-              className="h-[clamp(130px,16vw,230px)] w-full rounded-[40px] object-cover sm:rounded-[50px]"
-              width="1280"
-              height="720"
-              loading="lazy"
-              decoding="async"
-            />
-            <img
-              src={project.images[1]}
-              alt={`${project.name} — раздел проекта`}
-              className="h-[clamp(160px,22vw,340px)] w-full rounded-[40px] object-cover sm:rounded-[50px]"
-              width="1280"
-              height="960"
+              src={project.images[2]}
+              alt={`${project.name} — экран 3`}
+              className="h-[clamp(300px,calc(38vw+0.75rem),582px)] w-full object-contain sm:object-cover sm:object-top"
               loading="lazy"
               decoding="async"
             />
           </div>
-          <img
-            src={project.images[2]}
-            alt={`${project.name} — обзор сайта`}
-            className="h-[clamp(300px,calc(38vw+0.75rem),582px)] w-full rounded-[40px] object-cover sm:rounded-[50px]"
-            width="1280"
-            height="1536"
-            loading="lazy"
-            decoding="async"
-          />
         </div>
+
       </motion.article>
     </div>
   );
